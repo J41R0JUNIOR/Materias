@@ -1,6 +1,6 @@
 package atividade1;
 
-public class a01 {
+public class verificaNumeroPrimo {
     
     public static void main (String args[]){
 
