@@ -2,10 +2,10 @@
 
 int main(){
 
-    int number;
+    int number = 123111;
     int qtd = 0;
 
-    scanf("%d", &number);
+    //scanf("%d", &number);
 
     if((number % 2) != 0){
         for(int i = number ; i != 0; i--){
