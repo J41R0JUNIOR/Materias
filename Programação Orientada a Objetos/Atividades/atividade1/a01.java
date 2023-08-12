@@ -1,13 +1,15 @@
-package atividades.lista01;
+package atividade1;
 
 public class a01 {
     
     public static void main (String args[]){
 
-        System.out.println("Ola, mundo!");
+        
 
-       int x = 11, resultado = verificarNumeroPrimo(x);
+       int x = 9, resultado = verificarNumeroPrimo(x);
 
+       System.out.println(x);
+       
         if (resultado == 1){
             System.out.println("Numero Primo");
         }else{
