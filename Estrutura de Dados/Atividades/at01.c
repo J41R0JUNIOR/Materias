@@ -1,26 +1,26 @@
 #include <stdio.h>
-#include <stdlib.h>
 
-double calcularDobro(double n){
-    return n*2;
-}
+int main(){
 
-int main (int arc, char* argv[]){
+    int number;
+    int qtd = 0;
 
-    int n = 11;
-    int n2 = 0;
-    float f1 = 1.5;
-    double d1 = 1.55555;
-    char letra = 'j';
+    scanf("%d", &number);
 
-    if(n2){
-        printf("0 eh verdadeiro\n");
+    if((number % 2) != 0){
+        for(int i = number ; i != 0; i--){
+            if((number % i) == 0){
+                qtd++;
+            }
+        }  
+        if(qtd <= 2){
+        printf("Numero primo");
+        }else{
+            printf("Numero nao primo");
+        }
+    }else{
+        printf("Numero nao primo");
     }
-    if(n){
-        printf("11 eh verdadeiro");
-    }
-
-    printf("O dobro de %lf eh %lf", d1, calcularDobro(d1));
-
+    
     return 0;
 }
