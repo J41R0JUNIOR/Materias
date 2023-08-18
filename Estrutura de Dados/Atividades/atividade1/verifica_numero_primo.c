@@ -21,7 +21,7 @@ int main(int argc, char* argv[]){
 
 int verificar(int n){
     int qtd = 0;
-    
+
     if (n == 2){
         return 1;
     }
@@ -30,6 +30,9 @@ int verificar(int n){
         for(int i = n ; i != 0; i--){
             if((n % i) == 0){
                 qtd++;
+                if(qtd>=3){
+                    return 0;
+                }
             }
         }  
 
