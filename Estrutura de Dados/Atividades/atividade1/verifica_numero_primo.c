@@ -16,11 +16,15 @@ int main(int argc, char* argv[]){
     }
 
     return 0;
+    
 }
-
 
 int verificar(int n){
     int qtd = 0;
+    
+    if (n == 2){
+        return 1;
+    }
 
     if((n % 2) != 0){
         for(int i = n ; i != 0; i--){
@@ -38,3 +42,5 @@ int verificar(int n){
         return 0;
     }
 }
+//gcc -o verifica_numero_primo verifica_numero_primo.c
+//./verifica_numero_primo 123456

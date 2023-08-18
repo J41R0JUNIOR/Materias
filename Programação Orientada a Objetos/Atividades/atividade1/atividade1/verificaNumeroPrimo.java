@@ -6,7 +6,7 @@ public class verificaNumeroPrimo {
 
         
 
-       int x = 9, resultado = verificarNumeroPrimo(x);
+       int x = 2, resultado = verificarNumeroPrimo(x);
 
        System.out.println(x);
        
@@ -20,6 +20,10 @@ public class verificaNumeroPrimo {
     public static Integer verificarNumeroPrimo(Integer number){
         int qtd = 0;
         
+        if (number == 2){
+            return 1;
+        }
+
         if((number % 2) != 0){
             for(int i = number ; i != 0; i--){
                 if((number % i) == 0){
