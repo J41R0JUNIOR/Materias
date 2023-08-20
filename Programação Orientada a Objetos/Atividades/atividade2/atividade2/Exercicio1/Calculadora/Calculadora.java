@@ -1,4 +1,4 @@
-package revisao.ferramenta;
+package atividade2.Exercicio1.Calculadora;
 
 public class Calculadora {
 
@@ -62,3 +62,4 @@ public class Calculadora {
     
 
 }
+

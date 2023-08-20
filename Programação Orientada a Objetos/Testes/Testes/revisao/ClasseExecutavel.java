@@ -1,5 +1,5 @@
-package ferramenta;
-import revisao.ferramenta.Calculadora;
+package Testes.revisao;
+import Testes.revisao.ferramenta.Calculadora;
 
 public class ClasseExecutavel {
     
