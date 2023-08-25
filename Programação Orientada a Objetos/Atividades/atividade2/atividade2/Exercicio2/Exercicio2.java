@@ -14,7 +14,6 @@ public class Exercicio2 {
 
 
         calc.a = 0;
-        // Cria um objeto Scanner para ler entradas do terminal
         Scanner scanner = new Scanner(System.in);
 
         System.out.print("Digite o valor: ");
@@ -28,9 +27,6 @@ public class Exercicio2 {
         System.out.print("e voce quer transformar em:");
         String op2 = scanner.nextLine(); 
 
-        
-
-        // Não se esqueça de fechar o Scanner quando terminar de usá-lo
         scanner.close();
 
 
