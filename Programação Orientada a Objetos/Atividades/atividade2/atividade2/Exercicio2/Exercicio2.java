@@ -22,7 +22,6 @@ public class Exercicio2 {
         scanner.nextLine();
 
         System.out.printf("f para Fahreneit e c para Celsius \n valor digitado é:");
-        String op = scanner.nextLine(); // Lê a linha digitada pelo usuário
 
         System.out.print("e voce quer transformar em:");
         String op2 = scanner.nextLine(); 
