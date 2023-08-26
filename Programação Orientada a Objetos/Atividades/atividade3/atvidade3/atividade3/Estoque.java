@@ -42,6 +42,8 @@ public class Estoque {
         return listarObjetos;
     }
 
+
+    
     public void editarObjeto(int id) {
         for (Objeto obj : objetos) {
             if (obj.id == id) {

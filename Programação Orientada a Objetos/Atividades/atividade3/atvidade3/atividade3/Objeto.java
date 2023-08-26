@@ -3,6 +3,7 @@ package atividade3;
 public class Objeto {
     public int id, qtd;
     public String nome;
+   
     
 
     Objeto(int id, String nome, int qtd){
@@ -10,6 +11,8 @@ public class Objeto {
         this.nome = nome;
         this.qtd = qtd;
     }
+
+
 
     String imprimir(){
         String imp = "";
