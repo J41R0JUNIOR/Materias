@@ -2,8 +2,11 @@
 
 int main (void){
 
-    int vetor[] = {2,43,5,45,32,75,5435,3,-8};
+    int vetor[] = {2,43,5,45,32,75,5435,3,-3308};
     int maior, menor;
+
+    maior = vetor[0];
+    menor = vetor[0];
 
 
     for(int i = 0; i < (sizeof(vetor)/sizeof(int)); ++i){

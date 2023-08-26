@@ -12,12 +12,8 @@ int main(void){
     if(compararString(stringBusca, array)){
         printf("Existe uma String igual dentro do vetor");
     }else{
-        printf("Nao existe nenhuma String dentro do vetor");
+        printf("Nao existe nenhuma String igual dentro do vetor");
     }
-
-    
-
-
 
     return 0;
 }
