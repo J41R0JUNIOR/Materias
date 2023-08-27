@@ -7,9 +7,10 @@ struct Ponto {
 }typedef Ponto;
 
 int main(int argc, char* argv[]) {
-    int x;
-    float y;
-    int qtd;
+    int x = 0;
+    float y = 0;
+    int qtd = 0;
+
     FILE* file;
     file = fopen("/Users/jairojunior/Documents/GitHub/Materias/Estrutura de Dados/Atividades/atividade3/dados.csv", "r");
 
@@ -51,15 +52,18 @@ int main(int argc, char* argv[]) {
     float mediaX = (float)x / qtd;
     float mediaY = y / qtd;
     printf("\ntotal x = %d, total y = %f", x, y);
-    printf("\nmedia x = %i, media y = %f", mediaX, mediaY);
+    printf("\nmedia x = %f, media y = %f", mediaX, mediaY);
 
     //(coeficiente angular)
     //inclinacao 
-    float inclinacao;
-    for(int i = 0; i < qtd; i++){
-        inclinacao = (pontos[i].x - mediaX) * (pontos[i].y - mediaY) / ((pontos[i].x - mediaX) * (pontos[i].x - mediaX));
+    float sumXY = 0, sumXX = 0;
+
+   for (int i = 0; i < qtd; i++) {
+        sumXY += (pontos[i].x - mediaX) * (pontos[i].y - mediaY);
+        sumXX += (pontos[i].x - mediaX) * (pontos[i].x - mediaX);
     }
 
+    float inclinacao = sumXY / sumXX;
     printf("\n inclinacao = %f", inclinacao);
 
     //(coeficiente linear)
