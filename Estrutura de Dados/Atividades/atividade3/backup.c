@@ -11,8 +11,12 @@ int main(int argc, char* argv[]) {
     float y = 0;
     int qtd = 0;
 
+    /*
+    /Users/jairojunior/Documents/GitHub/Materias/Estrutura de Dados/Atividades/atividade3/dados.csv
+    */
+
     FILE* file;
-    file = fopen(argv[1], "r");
+    file = fopen("/Users/jairojunior/Documents/GitHub/Materias/Estrutura de Dados/Atividades/atividade3/dados.csv", "r");
 
     if (file == NULL) {
         perror("Error opening file");
@@ -71,7 +75,6 @@ int main(int argc, char* argv[]) {
     float intercepcao = mediaY - inclinacao * mediaX;
     printf("\n intercepcao = %f", intercepcao);
 
-    printf("\n ------------ resultado final --------------- \n");
     printf("\ny = %.2f * x + %.2f", inclinacao, intercepcao);
     return 0;
 }
