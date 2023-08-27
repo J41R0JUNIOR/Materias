@@ -71,5 +71,6 @@ int main(int argc, char* argv[]) {
     float intercepcao = mediaY - inclinacao * mediaX;
     printf("\n intercepcao = %f", intercepcao);
 
+    printf("\ny = %.2f * x + %.2f", inclinacao, intercepcao);
     return 0;
 }
