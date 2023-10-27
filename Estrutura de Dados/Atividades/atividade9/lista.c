@@ -10,19 +10,32 @@ No* no(float valor, No* proximo_no){
     return no;
 }
 
-void lista_inserir_no(No* H, No* no){
-    if(H != NULL){
-        if(H->proximo_no == NULL){
-            H->proximo_no = no;
-        }else{
-            lista_inserir_no(H->proximo_no, no);  
-        }
+// void lista_inserir_no(No* H, No* no){
+//     if(H != NULL){
+//         if(H->proximo_no == NULL){
+//             H->proximo_no = no;
+//         }else{
+//             lista_inserir_no(H->proximo_no, no);  
+//         }
+//     }
+// }
+
+void lista_inserir_no(No* head, No* tail, float valor) {
+    No* novo_no = no(valor, NULL);
+
+    if (head == NULL) {
+        head = novo_no;
+        tail = novo_no;
+    } else {
+        (tail)->proximo_no = novo_no;
+        tail = novo_no; 
     }
 }
 
+
 void lista_imprimir(No* H){
     if(H != NULL){
-        printf("%f || ", H->valor);
+        printf("%f \n", H->valor);
         lista_imprimir(H->proximo_no);
     }
   
@@ -155,19 +168,46 @@ void lista_remover_no(No* L, float valor_busca) {
     }
 }
 
-void lista_inserir_no_ordenado(No* L, No* no){
-    No* atual = L;
+// void lista_inserir_no_ordenado(No* L, No* no){
+//     No* atual = L;
 
-        if (atual != NULL) {
-            no->proximo_no = atual->proximo_no;
-            atual->proximo_no = no;
+//         if (atual != NULL) {
+//             no->proximo_no = atual->proximo_no;
+//             atual->proximo_no = no;
 
            
-        } else {
-            while (atual->proximo_no != NULL) {
-                atual = atual->proximo_no;
-            }
-            atual->proximo_no = no;
+//         } else {
+//             while (atual->proximo_no != NULL) {
+//                 atual = atual->proximo_no;
+//             }
+//             atual->proximo_no = no;
           
-        }
+//         }
+// }
+void lista_inserir_no_ordenado(No* L, No* no) {
+    No* atual = L;
+    No* anterior = NULL;
+
+    // Caso especial: se a lista estiver vazia, o novo nó se torna o primeiro nó
+    if (atual == NULL) {
+        L = no;
+        return;
+    }
+
+    // Percorre a lista até encontrar o local apropriado para inserção
+    while (atual != NULL && atual->valor < no->valor) {
+        anterior = atual;
+        atual = atual->proximo_no;
+    }
+
+    // Insere o novo nó na posição correta
+    if (anterior == NULL) {
+        // O novo nó deve se tornar o primeiro nó da lista
+        no->proximo_no = L;
+        L = no;
+    } else {
+        // Insere o novo nó após o nó anterior
+        no->proximo_no = atual;
+        anterior->proximo_no = no;
+    }
 }
