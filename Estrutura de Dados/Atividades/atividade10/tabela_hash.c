@@ -3,13 +3,7 @@
 #include <string.h>
 #include "tabela_hash.h"
 
-typedef struct Entrada {
-    char* chave;
-    char* dado;
-    struct Entrada* proximo;
-} Entrada;
 
-Entrada* tabela[TAMANHO_TABELA];
 
 void hash_table_init() {
     for (int i = 0; i < TAMANHO_TABELA; i++) {
