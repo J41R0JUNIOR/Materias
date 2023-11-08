@@ -8,6 +8,7 @@ typedef struct Entrada {
 
 Entrada* tabela[TAMANHO_TABELA];
 
+int hash(char* chave);
 void hash_table_init();
 char* hash_table_get(char* chave);
 void hash_table_put(char* chave, char* dado);

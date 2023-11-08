@@ -3,8 +3,6 @@
 #include <string.h>
 #include "tabela_hash.h"
 
-
-
 void hash_table_init() {
     for (int i = 0; i < TAMANHO_TABELA; i++) {
         tabela[i] = NULL;
