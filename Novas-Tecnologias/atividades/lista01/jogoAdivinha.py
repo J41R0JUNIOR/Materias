@@ -1,5 +1,4 @@
 
-
 import random
 qtd = 1
 max = 3
