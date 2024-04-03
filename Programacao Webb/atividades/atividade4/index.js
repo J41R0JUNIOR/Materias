@@ -17,10 +17,8 @@ app.get('/ola/:nome', function(req, res){
 
 app.get('/verificar-numero-primo/:n', function(req, res){
     let n = req.params.n;
-
-    res.send(`O número é primo? `+ verificarNumeroPrimo.verificarNumeroPrimo(n));
+    res.send(`O número ${n} é primo? `+ verificarNumeroPrimo.verificarNumeroPrimo(n));
   
-   
 })
 
 const PORT = 8080;
