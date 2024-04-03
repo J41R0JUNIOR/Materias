@@ -4,12 +4,10 @@ function transporMatriz(A){
 
     vetor = [];
 
-    console.log(linha);
-    console.log(coluna);
-
     for(j = 0; j < coluna; j++){
         vetor[j] = []
     }
+    
 
     for(i = 0; i < coluna; i++){
         for(j = 0; j < linha; j++){
@@ -18,9 +16,20 @@ function transporMatriz(A){
 
     }
 
+    print(A, linha);
+    console.log("\n")
+    print(vetor, coluna);
 
-   console.log(vetor);
+  
 }
 
-A = [[0,1,2,5], [3,,4,4], [5,6,3,5]];
-transporMatriz(A);
+function print(arr, coluna){
+    for(j = 0; j < coluna; j++){
+        console.log(arr[j]);
+    }
+}
+
+module.exports = {
+    transporMatriz,
+    print
+};

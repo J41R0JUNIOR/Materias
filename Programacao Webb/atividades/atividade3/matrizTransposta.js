@@ -16,7 +16,7 @@ function transporMatriz(A) {
         }
     }
 
-    console.log("Matriz transposta:");
+    console.log("Matriz transposta:");l
     imprimirMatriz(matrizTransposta);
 }
 
@@ -26,8 +26,10 @@ function imprimirMatriz(matriz) {
     }
 }
 
-const matriz = [
-    [1,2],[3,4],[5,6]
-];
-
 transporMatriz(matriz);
+
+const matriz = [
+    [1,2],
+    [3,4],
+    [5,6]
+];
