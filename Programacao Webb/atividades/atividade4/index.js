@@ -1,28 +1,33 @@
+// /somar/:a/:b
+// /subtrair/:a/:b
+// /multiplicar/:a/:b
+// /dividir/:a/:b
+
+const calculadora = require('./util/calculadora');
 const express = require('express');
-const verificarNumeroPrimo = require('./util/verificarNumeroPrimo')
 const app = express();
 
-app.get('/', function(req, res){
-    res.send('página inicial');
+app.get('', function(){
+    res.send('Página Inicial')
 })
 
-app.get('/ola', function(req, res){
-    res.send('Olá Mundo');
+app.get('/somar/:a/:b', function(req, res){
+    res.send('= ' + calculadora.somar(req.params.a, req.params.b));
 })
 
-app.get('/ola/:nome', function(req, res){
-    let nome = req.params.nome
-    res.send('Olá ' + nome);
+app.get('/subtrair/:a/:b', function(req, res){
+    res.send('= ' + calculadora.subtrair(req.params.a, req.params.b));
 })
 
-app.get('/verificar-numero-primo/:n', function(req, res){
-    let n = req.params.n;
-    res.send(`O número ${n} é primo? `+ verificarNumeroPrimo.verificarNumeroPrimo(n));
-  
+app.get('/multiplicar/:a/:b', function(req, res){
+    res.send('= ' + calculadora.multiplicar(req.params.a, req.params.b));
+})
+
+app.get('/dividir/:a/:b', function(req, res){
+    res.send('= ' + calculadora.dividir(req.params.a, req.params.b));
 })
 
 const PORT = 8080;
-
 
 app.listen(PORT, function(){
     console.log("app rodndo na porta " + PORT);
