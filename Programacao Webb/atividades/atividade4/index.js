@@ -1,8 +1,3 @@
-// /somar/:a/:b
-// /subtrair/:a/:b
-// /multiplicar/:a/:b
-// /dividir/:a/:b
-
 const calculadora = require('./util/calculadora');
 const express = require('express');
 const app = express();
