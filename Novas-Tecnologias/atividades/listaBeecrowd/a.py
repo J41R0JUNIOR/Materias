@@ -53,47 +53,48 @@
 
 # # main()
 
+#////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
 
-g, p = map(int, input().split()) 
+# g, p = map(int, input().split()) 
 
-while (g < 1 or g > 100):
-    g = int(input())
+# while (g < 1 or g > 100):
+#     g = int(input())
 
-while (p < 1 or p > 100):
-    p = int(input())
+# while (p < 1 or p > 100):
+#     p = int(input())
 
-q = []
+# q = []
 
-for i in range(g):
-    queue = input().split()
-    queue = queue[0:p]
-    queue = [int(n) for n in queue]
-    q.append(queue)
+# for i in range(g):
+#     queue = input().split()
+#     queue = queue[0:p]
+#     queue = [int(n) for n in queue]
+#     q.append(queue)
 
-s = int(input())
+# s = int(input())
 
-while (s < 1 or s > 10):
-    s = int(input())
+# while (s < 1 or s > 10):
+#     s = int(input())
 
-scoresDescriptions = []
-k = []
+# scoresDescriptions = []
+# k = []
 
-for i in range(s):
-    scoreSequence = input().split()
-    scoreSequence = [int(n) for n in scoreSequence]
-    k.append(scoreSequence[0])
-    scoresDescriptions.append(scoreSequence[1:k[i]+1])
+# for i in range(s):
+#     scoreSequence = input().split()
+#     scoreSequence = [int(n) for n in scoreSequence]
+#     k.append(scoreSequence[0])
+#     scoresDescriptions.append(scoreSequence[1:k[i]+1])
     
 
 
-#calculando...
+# #calculando...
 
-resultado = {}
+# resultado = {}
 
 
-
+#////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
 
@@ -130,6 +131,7 @@ resultado = {}
    
 
 
+#////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
 
