@@ -1,57 +1,57 @@
 
 
-# # def main():
-# #     g, p = map(int, input().split())
+# def main():
+#     g, p = map(int, input().split())
 
-# #     q = [list(map(int, input().split())) for _ in range(g)]
+#     q = [list(map(int, input().split())) for _ in range(g)]
 
-# #     s = int(input())
+#     s = int(input())
 
-# #     scoreRules = [list(map(int, input().split())) for _ in range(s)]
-
-
-# #     pilotsScores = [0] * p
-
-# #     resultado = {}
-# #     for i in range(len(q)):
-# #         for j in range(len(q[i])):
-# #             resultado[q[i][j]] = 0
-# #     print(resultado)
-
-# #     for i in range(len(scoreRules)):
-# #         for j in range(len(q)):
-# #             k = scoreRules[0][i]
-# #             calculateResult(scoreRules[i], pilotsScores, k)
-# #             whoWon(q, pilotsScores, k)
-# #             pilotsScores = [0] * p
+#     scoreRules = [list(map(int, input().split())) for _ in range(s)]
 
 
+#     pilotsScores = [0] * p
 
-# # def calculateResult(rule, pilotScores, k):
-# #     rule = rule[1:]
-# #     print("rule",rule, "candidatos", k)
-# #     for i in range(len(pilotScores)):
-# #         if i <= k - 1:
-# #             pilotScores[i] += rule[i]
+#     resultado = {}
+#     for i in range(len(q)):
+#         for j in range(len(q[i])):
+#             resultado[q[i][j]] = 0
+#     print(resultado)
 
-# #     print("pilotScores =",pilotScores)
+#     for i in range(len(scoreRules)):
+#         for j in range(len(q)):
+#             k = scoreRules[0][i]
+#             calculateResult(scoreRules[i], pilotsScores, k)
+#             whoWon(q, pilotsScores, k)
+#             pilotsScores = [0] * p
 
 
 
-# # def whoWon(queue, pilotScores, k):
-# #     print("queue=", queue)
-# #     indexes = []
-# #     greater = max(pilotScores)
-# #     print("greater =",greater)
+# def calculateResult(rule, pilotScores, k):
+#     rule = rule[1:]
+#     print("rule",rule, "candidatos", k)
+#     for i in range(len(pilotScores)):
+#         if i <= k - 1:
+#             pilotScores[i] += rule[i]
+
+#     print("pilotScores =",pilotScores)
+
+
+
+# def whoWon(queue, pilotScores, k):
+#     print("queue=", queue)
+#     indexes = []
+#     greater = max(pilotScores)
+#     print("greater =",greater)
     
     
-# #     for i in range(len(pilotScores)):
-# #         if  i <= k and pilotScores[i] == greater:
-# #             indexes.append(i)
-# #     print("vencedores = ", indexes)
+#     for i in range(len(pilotScores)):
+#         if  i <= k and pilotScores[i] == greater:
+#             indexes.append(i)
+#     print("vencedores = ", indexes)
                 
 
-# # main()
+# main()
 
 #////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -93,13 +93,6 @@
 
 # resultado = {}
 
-
-#////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-
-
-
-
 # indices = []
 # for scores in scoresDescriptions:
 #     resultado = {piloto: 0 for corrida in q for piloto in corrida}
@@ -116,18 +109,18 @@
 #     print(" ".join(str(p) for p in indices))
 
 
-# #  for i in range(len(scoresDescriptions)):
+#  for i in range(len(scoresDescriptions)):
 
-# #     resultado = {piloto: 0 for corrida in q for piloto in corrida}
+#     resultado = {piloto: 0 for corrida in q for piloto in corrida}
 
-# #     for j in range(len(scoresDescriptions[i])):
-# #         for k in range(len(q)):
-# #             resultado[q[k][j]] += scoresDescriptions[i][j]
+#     for j in range(len(scoresDescriptions[i])):
+#         for k in range(len(q)):
+#             resultado[q[k][j]] += scoresDescriptions[i][j]
 
-# #     max = max(resultado.values)
-# #     if(resultado[i] == max):
-# #         indices.append(resultado)
-# #     print(resultado)
+#     max = max(resultado.values)
+#     if(resultado[i] == max):
+#         indices.append(resultado)
+#     print(resultado)
    
 
 
@@ -200,4 +193,6 @@
 #         for i in vet:
 #             print(i)
 # main()
+
+
 
