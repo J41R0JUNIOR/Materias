@@ -194,5 +194,66 @@
 #             print(i)
 # main()
 
+#////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
+def iguais(lista, pontuacao, listaa):
+    texto = []
+    for a in range(len(listaa)):
+        if pontuacao == lista[listaa[a]]:
+            texto.append(listaa[a])
+    texto.sort()
+    return ' '.join(texto)
+
+def insere(listaposicoes, dicionario, index):
+    if len(listaposicoes) == index - 1:
+        return dicionario
+    else:
+        dicionario[str(index)]['lista'] += [int(listaposicoes[index - 1])]
+        return insere(listaposicoes, dicionario, index + 1)
+
+def cria(qtd):
+    lista = {}
+    for a in range(1, qtd + 1):
+        lista[str(a)] = {'lista': [], 'pontuacao': 0}
+    return lista
+
+def somapontos(listaposicoes, sistema):
+    listaPontos = {}
+    for b in range(1, len(listaposicoes) + 1):
+        for a in range(1, len(sistema)):
+            for c in listaposicoes[str(b)]['lista']:
+                if a == c:
+                    if str(b) in listaPontos:
+                        listaPontos[str(b)] += int(sistema[a])
+                    else:
+                        listaPontos[str(b)] = int(sistema[a])
+    return listaPontos
+
+def main():
+    while True:
+        linha = input()
+        if linha == '0 0':
+            break
+        else:
+            spl = linha.split(' ')
+            qtdPremios = int(spl[0])
+            qtdPilotos = int(spl[1])
+            listaPosicoes = cria(qtdPilotos)
+            
+            for _ in range(qtdPremios):
+                linha1 = input()
+                listaPosicoes = insere(linha1.split(' '), listaPosicoes, 1)
+                
+            qtdsistpont = int(input())
+            listaPontuacao = {}
+            for _ in range(qtdsistpont):
+                linha2 = input()
+                listaPontuacao.update(somapontos(listaPosicoes, linha2.split(' ')))
+                
+            max_pontuation = max(listaPontuacao.values())
+            result = iguais(listaPontuacao, max_pontuation, list(listaPontuacao.keys()))
+            print(result)
+
+if __name__ == "__main__":
+    main()
