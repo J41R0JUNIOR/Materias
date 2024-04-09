@@ -196,64 +196,39 @@
 
 #////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-
-def iguais(lista, pontuacao, listaa):
-    texto = []
-    for a in range(len(listaa)):
-        if pontuacao == lista[listaa[a]]:
-            texto.append(listaa[a])
-    texto.sort()
-    return ' '.join(texto)
-
-def insere(listaposicoes, dicionario, index):
-    if len(listaposicoes) == index - 1:
-        return dicionario
-    else:
-        dicionario[str(index)]['lista'] += [int(listaposicoes[index - 1])]
-        return insere(listaposicoes, dicionario, index + 1)
-
-def cria(qtd):
-    lista = {}
-    for a in range(1, qtd + 1):
-        lista[str(a)] = {'lista': [], 'pontuacao': 0}
-    return lista
-
-def somapontos(listaposicoes, sistema):
-    listaPontos = {}
-    for b in range(1, len(listaposicoes) + 1):
-        for a in range(1, len(sistema)):
-            for c in listaposicoes[str(b)]['lista']:
-                if a == c:
-                    if str(b) in listaPontos:
-                        listaPontos[str(b)] += int(sistema[a])
-                    else:
-                        listaPontos[str(b)] = int(sistema[a])
-    return listaPontos
+def calculate_points(order, scoring_system):
+    points = [0] * len(order)
+    for i, pos in enumerate(order):
+        if pos <= scoring_system['last_position']:
+            points[i] = scoring_system['points'][pos - 1]
+    return points
 
 def main():
     while True:
-        linha = input()
-        if linha == '0 0':
+        G, P = map(int, input().split())
+        if G == 0 and P == 0:
             break
-        else:
-            spl = linha.split(' ')
-            qtdPremios = int(spl[0])
-            qtdPilotos = int(spl[1])
-            listaPosicoes = cria(qtdPilotos)
+        
+        race_results = []
+        for _ in range(G):
+            race_results.append(list(map(int, input().split())))
+        
+        S = int(input())
+        for _ in range(S):
+            scoring_system = {}
+            K, *points = map(int, input().split())
+            scoring_system['last_position'] = K
+            scoring_system['points'] = points
             
-            for _ in range(qtdPremios):
-                linha1 = input()
-                listaPosicoes = insere(linha1.split(' '), listaPosicoes, 1)
-                
-            qtdsistpont = int(input())
-            listaPontuacao = {}
-            for _ in range(qtdsistpont):
-                linha2 = input()
-                listaPontuacao.update(somapontos(listaPosicoes, linha2.split(' ')))
-                
-            max_pontuation = max(listaPontuacao.values())
-            result = iguais(listaPontuacao, max_pontuation, list(listaPontuacao.keys()))
-            print(result)
+            pilots_points = [0] * P
+            for race_result in race_results:
+                race_points = calculate_points(race_result, scoring_system)
+                for i in range(P):
+                    pilots_points[i] += race_points[i]
+            
+            max_points = max(pilots_points)
+            champions = [str(i + 1) for i, points in enumerate(pilots_points) if points == max_points]
+            print(' '.join(champions))
 
 if __name__ == "__main__":
     main()
