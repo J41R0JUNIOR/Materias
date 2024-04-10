@@ -17,32 +17,43 @@
 # For each scoring system in the input your program must print one line, containing the identifier of the World Champion. If more than one pilot are World Champions (ie, if there is a tie), the line must contain all World Champions, in increasing order of identifier, separated by a space.
 
 
-def calcular(r, k, q, p, g):
-    resultado = [[0] * p for _ in range(g)]
-    print(resultado)
-    winners = []
+def calcular(r, k, q, p):
+    result = [] #An array that we'll put the results of the races
+    for i in range(p): #Filling the array with zero's, we'll need this after to be the same quantity fo pilots
+        result.append(0) #adding the zero
 
-    for i in range(q):
-        for j in range(q[i]):
-            resultado[i][j] += r[i]
-            
+    winners = [] #An array that we'll store all the winners of the RULE,(yes, the rule, for each one we have to calculate the winner of this rule)
 
+    for i in range(len(q)):
+        #The logic i used was to get the pilot position at each race and verify if it's less or equal to the k variable(quantity of pilots that will receive the points),                                                                                      
+        #FOR EXAMPLE q = [3, 1, 2], the pilot[0] got at the third place, pilot[1] got at the first place...                                                                                             k = 2 and r = [5, 2], the first pilot one get five points and the second one get two                                                                                                  So, the pilot[1] get 5, and pilot[2] get 2 points, then we have to calculate the points of each pilot in each races and sum with is sucessor                                                            
+        for j in range(len(q[i])):
+            if q[i][j] <= k: 
+                result[j] += r[q[i][j] - 1] #calculating the races, for each race and for each pilot it sum its points
+                #FOR EXAMPLE: if the pilot one got at third at the first race, and first at the second, it will sum it's points
+  
+    maxPoints = max(result) #We just want to get the winners, so, it get the maximum point get
+   
+    for i in range(len(result)): #Now we get the position of the winner pilot and then we add to the array winners
+        if result[i] == maxPoints:
+            winners.append(i + 1) #this +1 is becouse the variable i goes through 0... and when we want to know the player we don't have player 0, we have the player[0] that is the player position at the array, the players comes from 1 to 100.
 
     return winners
             
 
+def main():
+    tryAgain = True #This is for continuing in the loop trying new cases
+    while tryAgain:
+        g, p = map(int, input().split()) #g variable is the quantity of races and the p variable is the quantity of pilots
+        if g == 0 and p == 0: #end the program
+            tryAgain = False
+            break
+        q = [list(map(int, input().split())) for _ in range(g)] #the position of each pilots going through 1 < g < 100. THIS IS NOT THE QUEUE FINISHING ORDER OF PILOTS, IT IS IT'S POSITIONS, so the first value is the pilot[0], the second is the pilot[1] ...
+        s = int(input()) #quantity of rules that we'll calculate
 
+        for _ in range(s): #for each rule, we have to calculate all races stored at the variable q
+            k, *rules = map(int, input().split()) #the variable k, is the quantity of pilots that will receive points, and the rule variable is all the rules that the program will calculate
+            result = calcular(rules, k, q, p) #here we get an array of results
+            print(*result) #printing the result of each rule
 
-g, p = map(int, input().split())
-# print(g,p)
-
-q = [list(map(int, input().split())) for _ in range(g)]
-# print(q)
-
-s = int(input())
-# print(s)
-
-for _ in range(s):
-    k, *regras = map(int, input().split())
-  
-    print(calcular(regras, k, q, p, g))
+main()
