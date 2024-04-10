@@ -2,7 +2,7 @@ const calculadora = require('./util/calculadora');
 const express = require('express');
 const app = express();
 
-app.get('/', function(){
+app.get('/', function(req, res){
     res.send('Página Inicial')
 })
 
