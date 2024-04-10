@@ -17,6 +17,8 @@
 # For each scoring system in the input your program must print one line, containing the identifier of the World Champion. If more than one pilot are World Champions (ie, if there is a tie), the line must contain all World Champions, in increasing order of identifier, separated by a space.
 
 
+#To understand better you can start by main function
+
 def calcular(r, k, q, p):
     result = [] #An array that we'll put the results of the races
     for i in range(p): #Filling the array with zero's, we'll need this after to be the same quantity fo pilots
