@@ -26,6 +26,9 @@ public class Main {
                 System.out.println("numero de execuções: " + numExec);
                 break;
             }
+
+
+
         }
     }
 }
