@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Formulário</title>
+<style>
+  .inline {
+    display: inline-block;
+    vertical-align: top;
+  }
+  .fieldset-container {
+    color: rgb(255, 255, 255);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    background-color: rgba(0, 0, 0, 0.6);
+    padding: 15px;
+    border-radius: 15px;
+    width: 40%;
+  }
+
+</style>
+</head>
+   
+<body>
+
+<div class="fieldset-container">
+    <legend>Formulário</legend>
+  <fieldset>
+    <legend>Dados Pessoais</legend>
+    <form action="#" method="post">
+      <label for="nome">Nome:</label><br>
+      <input type="text" id="nome" name="nome" required><br>
+      <label for="endereco">Endereço:</label><br>
+      <input type="text" id="endereco" name="endereco" required><br>
+      <label for="cidade">Cidade:</label><br>
+      <input type="text" id="cidade" name="cidade" required><br>
+      <label for="estado">Estado:</label><br>
+      <select id="estado" name="estado" class="inline">
+        <option value="AC">Acre</option>
+        <option value="AL">Alagoas</option>
+        <option value="AP">Amapá</option>
+        <option value="AM">Amazonas</option>
+        <option value="BA">Bahia</option>
+        <option value="CE">Ceará</option>
+        <option value="DF">Distrito Federal</option>
+        <option value="ES">Espírito Santo</option>
+        <option value="GO">Goiás</option>
+        <option value="MA">Maranhão</option>
+        <option value="MT">Mato Grosso</option>
+        <option value="MS">Mato Grosso do Sul</option>
+        <option value="MG">Minas Gerais</option>
+        <option value="PA">Pará</option>
+        <option value="PB">Paraíba</option>
+        <option value="PR">Paraná</option>
+        <option value="PE">Pernambuco</option>
+        <option value="PI">Piauí</option>
+        <option value="RJ">Rio de Janeiro</option>
+        <option value="RN">Rio Grande do Norte</option>
+        <option value="RS">Rio Grande do Sul</option>
+        <option value="RO">Rondônia</option>
+        <option value="RR">Roraima</option>
+        <option value="SC">Santa Catarina</option>
+        <option value="SP">São Paulo</option>
+        <option value="SE">Sergipe</option>
+        <option value="TO">Tocantins</option>
+      </select><br><br>
+    </form>
+  </fieldset>
+  
+  <fieldset>
+    <legend>Dados Profissionais</legend>
+    <form action="#" method="post">
+      <label>Natureza do Cargo:</label><br>
+      <input type="radio" id="gerencia" name="cargo" value="gerencia" class="inline">
+      <label for="gerencia">Gerência</label>
+      <input type="radio" id="financeiro" name="cargo" value="financeiro" class="inline">
+      <label for="financeiro">Financeiro</label>
+      <input type="radio" id="recepcao" name="cargo" value="recepcao" class="inline">
+      <label for="recepcao">Recepção</label>
+      <input type="radio" id="administrativo" name="cargo" value="administrativo" class="inline">
+      <label for="administrativo">Administrativo</label>
+      <input type="radio" id="juridico" name="cargo" value="juridico" class="inline">
+      <label for="juridico">Jurídico</label><br><br>
+
+      <label for="areas_interesse">Áreas de Interesse:</label><br>
+      <input type="checkbox" id="computacao" name="interesse" value="computacao" class="inline">
+      <label for="computacao">Computação</label>
+      <input type="checkbox" id="biologia" name="interesse" value="biologia" class="inline">
+      <label for="biologia">Biologia</label>
+      <input type="checkbox" id="meio_ambiente" name="interesse" value="meio_ambiente" class="inline">
+      <label for="meio_ambiente">Meio Ambiente</label>
+      <input type="checkbox" id="engenharia" name="interesse" value="engenharia" class="inline">
+      <label for="engenharia">Engenharia</label>
+      <input type="checkbox" id="historia" name="interesse" value="historia" class="inline">
+      <label for="historia">História</label><br><br>
+
+      <label for="feedback">Feedback:</label><br>
+      <textarea id="feedback" name="feedback" rows="4" cols="50"></textarea><br><br>
+
+      <input type="submit" value="Enviar" class="inline">
+      <input type="reset" value="Limpar" class="inline">
+    </form>
+  </fieldset>
+</div>
+
+</body>
+</html>
