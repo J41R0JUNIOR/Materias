@@ -3,6 +3,7 @@
 #                                    [2, 5]
 #                                    [3, 6]
 
+import numpy as np
 def transporMatriz(m):
     linha = len(m)
     coluna = len(m[0])
@@ -22,5 +23,10 @@ def printMatriz(m):
             print(m[i])
 
 matriz = [[1,2,3],[4,5,6]]
-printMatriz(matriz)
+# printMatriz(matriz) 
+print(matriz)
 transporMatriz(matriz)
+
+matriz = np.array([[1,2,3],[4,5,6]])
+matriz = matriz.T
+print("\n" ,matriz)
