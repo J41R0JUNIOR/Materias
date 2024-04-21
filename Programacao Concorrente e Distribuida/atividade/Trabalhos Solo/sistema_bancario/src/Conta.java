@@ -1,22 +1,22 @@
 public class Conta {
     
-    private Integer numero;
+    private Integer id;
     private Double saldo;
 
-    public ContaCorrente(Integer numero, Double saldo){
-        this.numero = numero;
+    public Conta(Integer id, Double saldo) throws Exception {
+        setId(id);
         this.saldo = saldo;
     }
 
-    public Integer getNumero(){
-        return this.numero;
+    public Integer getId(){
+        return this.id;
     }
 
-    public void setNumero(Integer n) throws Exception{
+    public void setId(Integer n) throws Exception{
         if(n > 0){
-            this.numero = n;
+            this.id = n;
         }else{
-            throw new Exception("Número inválido");
+            throw new Exception("ID inválido");
         }
     }
 
@@ -28,7 +28,7 @@ public class Conta {
         this.saldo = s;
     }
 
-    public void transferir(ContaCorrente contaDestino, Double valorTransferencia) throws Exception{
+    public synchronized void transferir(Conta contaDestino, Double valorTransferencia) throws Exception{
         if(getSaldo() >= valorTransferencia){
             this.saldo = getSaldo() - valorTransferencia;
             contaDestino.depositar(valorTransferencia);
@@ -43,7 +43,7 @@ public class Conta {
         }
     }
 
-    public static void transferir(ContaCorrente cOrigem, ContaCorrente cDestino, Double valorTransferencia) throws Exception{
+    public static void transferir(Conta cOrigem, Conta cDestino, Double valorTransferencia) throws Exception{
         cOrigem.transferir(cDestino, valorTransferencia);
     }
 
@@ -52,7 +52,7 @@ public class Conta {
     @Override
     public String toString() {
         return "{" +
-            " numero='" + getNumero() + "'" +
+            " numero='" + getId() + "'" +
             ", saldo='" + getSaldo() + "'" +
             "}";
     }
