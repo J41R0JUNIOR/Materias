@@ -1,19 +1,21 @@
 public class Funcionario extends Thread{
-    private Double salario = 700.0;
-    private Integer id;
+    private Double salario = 1400.00;
+    private String id;
+    private String idInvestimento;
     private Conta conta;
     private Conta contaInvestimento;
     private Banco banco;
 
-    public Funcionario(Integer id){
-        this.id = id;
+    public Funcionario(String  id){
+        this.id = "Funcionario" + id;
+        this.idInvestimento = id + "Investimento";
         try {
-            this.conta = new Conta(0.00);
+            this.conta = new Conta(0.00, id);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
         try {
-            this.contaInvestimento = new Conta(0.00);
+            this.contaInvestimento = new Conta(0.00, idInvestimento);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -24,14 +26,14 @@ public class Funcionario extends Thread{
         banco.transferir(conta, contaInvestimento, salario * 0.2);
     }
 
-    @Override
-    public long getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
+//    @Override
+//    public long getId() {
+//        return id;
+//    }
+//
+//    public void setId(Integer id) {
+//        this.id = id;
+//    }
 
     public Conta getConta() {
         return conta;
