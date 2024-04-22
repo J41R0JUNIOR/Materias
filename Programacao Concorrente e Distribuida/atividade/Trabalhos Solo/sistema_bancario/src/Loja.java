@@ -1,5 +1,5 @@
 public class Loja {
-    private Integer id;
+    private String id;
     private double salarioFuncionario = 1400.00;
     private Conta conta;
     private Banco banco;
@@ -8,12 +8,12 @@ public class Loja {
     private Funcionario funcionario1;
     private Funcionario funcionario2;
 
-    public Loja(Integer id){
+    public Loja(String id){
         this.id = id;
         this.funcionario1 = new Funcionario( "Funcionario1");
         this.funcionario2 = new Funcionario("Funcionario2");
         try {
-            this.conta = new Conta(2800.00, "Loja" + id);
+            this.conta = new Conta(2800.00, id);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -30,6 +30,8 @@ public class Loja {
             banco.transferir(conta, funcionario1.getConta(), salarioFuncionario);
             funcionario1.investir();
             salarioPagoFuncionario1 += 1;
+        }else{
+            System.out.println("Não foi possível pagar salarios");
         }
     }
 }

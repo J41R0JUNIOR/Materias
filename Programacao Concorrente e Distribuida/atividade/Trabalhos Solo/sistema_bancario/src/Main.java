@@ -12,11 +12,13 @@ public class Main {
         Cliente cliente4 = new Cliente("Cliente4");
         Cliente cliente5 = new Cliente("Cliente5");
 
-        Loja loja1 = new Loja(1);
-        Loja loja2 = new Loja(2);
+        Loja loja1 = new Loja("Loja1");
+        Loja loja2 = new Loja("Loja2");
 
-       banco.transferir(cliente1.getConta(), cliente2.getConta(), 400.00);
+//       banco.transferir(cliente1.getConta(), cliente2.getConta(), 400.00);
 
+       loja1.pagarFuncionario();
+       loja1.pagarFuncionario();
        loja1.pagarFuncionario();
 
 
