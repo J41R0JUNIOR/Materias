@@ -32,17 +32,4 @@ public class Loja {
             salarioPagoFuncionario1 += 1;
         }
     }
-//    public void pagarFuncionario(){
-//        if(conta.getSaldo() >= 1400) {
-//            banco.transferir(conta, funcionario1.getConta(), salarioFuncionario);
-//            banco.transferir(conta, funcionario2.getConta(), salarioFuncionario);
-//
-//            funcionario1.investir();
-////            System.out.println("conta " + funcionario1.getConta().getSaldo());
-////            System.out.println("conta investimento " + funcionario1.getContaInvestimento().getSaldo());
-////
-////            System.out.println("conta " + funcionario2.getConta().getSaldo());
-////            System.out.println("conta investimento " + funcionario2.getContaInvestimento().getSaldo());
-//        }
-//    }
 }

@@ -26,28 +26,7 @@ public class Funcionario extends Thread{
         banco.transferir(conta, contaInvestimento, salario * 0.2);
     }
 
-//    @Override
-//    public long getId() {
-//        return id;
-//    }
-//
-//    public void setId(Integer id) {
-//        this.id = id;
-//    }
-
     public Conta getConta() {
         return conta;
-    }
-
-    public void setConta(Conta conta) {
-        this.conta = conta;
-    }
-
-    public Conta getContaInvestimento() {
-        return contaInvestimento;
-    }
-
-    public void setContaInvestimento(Conta contaInvestimento) {
-        this.contaInvestimento = contaInvestimento;
     }
 }

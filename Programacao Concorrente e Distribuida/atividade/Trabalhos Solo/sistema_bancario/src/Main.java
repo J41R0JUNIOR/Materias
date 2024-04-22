@@ -15,17 +15,12 @@ public class Main {
         Loja loja1 = new Loja(1);
         Loja loja2 = new Loja(2);
 
-
        banco.transferir(cliente1.getConta(), cliente2.getConta(), 400.00);
-
-
 
        loja1.pagarFuncionario();
 
 
 
         System.out.printf("Hello and welcome!");
-
-
     }
 }

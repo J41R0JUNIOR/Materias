@@ -15,19 +15,10 @@ public class Cliente extends Thread{
 
     @Override
     public long getId(){return Long.parseLong(id);}
-//    public long getId() {
-//        return id;
-//    }
-//
-//    public void setId(Integer id) {
-//        this.id = id;
-//    }
+
 
     public Conta getConta() {
         return conta;
     }
 
-    public void setConta(Conta conta) {
-        this.conta = conta;
-    }
 }
