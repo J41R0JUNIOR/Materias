@@ -1,0 +1,55 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+    background-color: #000; /* Black background */
+    color: #fff; /* White text color */
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #eee; /* Light gray heading color */
+}
+
+#formCNPJ {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+#cnpjInput {
+    width: 250px;
+    padding: 12px;
+    margin-bottom: 15px;
+    border: 2px solid #ccc; /* Light gray border */
+    border-radius: 5px;
+    font-size: 16px;
+    background-color: #222; /* Dark gray input background */
+    color: #fff; /* White text color */
+    text-align: center;
+}
+
+#resultado {
+    font-weight: bold;
+    text-align: center;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3); /* Slight text shadow */
+    font-size: 30px;
+    margin-bottom: 15px;
+    color: rgb(255, 255, 255); /* Green text color for success */
+}
+
+button {
+    padding: 12px 24px;
+    font-size: 16px;
+    background-color: #fff; /* White button background */
+    color: #0a0a0a; /* White button text color */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #eee; /* Light gray on hover */
+}
