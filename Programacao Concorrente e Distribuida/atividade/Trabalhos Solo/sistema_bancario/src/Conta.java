@@ -23,14 +23,12 @@ public class Conta {
     public void depositar(Double valor) {
         Double saldoAnterior = saldo;
         this.saldo += valor;
-        // Notifica os ouvintes sobre a mudança no saldo
         propertyChangeSupport.firePropertyChange("saldo", saldoAnterior, saldo);
     }
 
     public void debitar(Double valor) {
         Double saldoAnterior = saldo;
         this.saldo -= valor;
-        // Notifica os ouvintes sobre a mudança no saldo
         propertyChangeSupport.firePropertyChange("saldo", saldoAnterior, saldo);
     }
 
@@ -38,7 +36,7 @@ public class Conta {
         propertyChangeSupport.addPropertyChangeListener(listener);
     }
 
-    public void removePropertyChangeListener(PropertyChangeListener listener) {
-        propertyChangeSupport.removePropertyChangeListener(listener);
-    }
+//    public void removePropertyChangeListener(PropertyChangeListener listener) {
+//        propertyChangeSupport.removePropertyChangeListener(listener);
+//    }
 }

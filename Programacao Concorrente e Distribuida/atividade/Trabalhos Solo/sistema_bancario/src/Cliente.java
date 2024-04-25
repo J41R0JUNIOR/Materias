@@ -25,13 +25,17 @@ public class Cliente extends Thread{
         }
     }
 
-//    public void run(){
-//        while(conta.getSaldo() > 0.00){
-//            if(ultimaLoja == 1){
-//                banco.transferir(getConta(), lojas.get(0).getConta(), 100.00);
-//            }
-//        }
-//    }
+    public long getId(){return Long.parseLong(id);}
+
+
+
+    public boolean isTerminou() {
+        return terminou;
+    }
+
+    public Conta getConta() {
+        return conta;
+    }
 
     public void run() {
         while (conta.getSaldo() > 0.00) {
@@ -46,26 +50,7 @@ public class Cliente extends Thread{
 
             banco.transferir(getConta(), lojas.get(proximaLoja).getConta(), valorCompra);
 
-//            try {
-//                Thread.sleep(random.nextInt(2000) + 500);
-//            } catch (InterruptedException e) {
-//                e.printStackTrace();
-//            }
         }
         terminou = true;
     }
-
-
-    @Override
-    public long getId(){return Long.parseLong(id);}
-
-    public boolean isTerminou() {
-        return terminou;
-    }
-
-
-    public Conta getConta() {
-        return conta;
-    }
-
 }

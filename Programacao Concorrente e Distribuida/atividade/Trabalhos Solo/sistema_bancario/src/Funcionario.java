@@ -22,11 +22,18 @@ public class Funcionario extends Thread{
         this.banco = banco;
     }
 
-    public void investir(){
-        banco.transferir(conta, contaInvestimento, salario * 0.2);
+    @Override
+    public long getId() {
+        return Long.parseLong(id);
     }
 
     public Conta getConta() {
         return conta;
     }
+
+    public void investir(){
+        banco.transferir(conta, contaInvestimento, salario * 0.2);
+    }
+
+
 }

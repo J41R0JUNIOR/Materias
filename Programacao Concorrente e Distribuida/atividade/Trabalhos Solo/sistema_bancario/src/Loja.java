@@ -32,7 +32,6 @@ public class Loja {
                 }
             }
         });
-
     }
 
     public Conta getConta() {
@@ -59,4 +58,6 @@ public class Loja {
             }
         }
     }
+
+
 }
