@@ -1,4 +1,4 @@
-Sistema Bancário com Threads em Java
+#Sistema Bancário com Threads em Java
 
 Este projeto representa um sistema bancário que utiliza threads e os conceitos estudados em sala de aula. O sistema é composto por diferentes entidades, como banco, loja, funcionário, cliente e conta. O objetivo é simular transações bancárias entre essas entidades de forma coordenada, garantindo a consistência dos saldos das contas.
 
