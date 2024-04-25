@@ -26,7 +26,7 @@ public class Loja {
             @Override
             public void propertyChange(PropertyChangeEvent evt) {
                 if (evt.getPropertyName().equals("saldo")) {
-                    if (conta.getSaldo() > 1400) {
+                    if (conta.getSaldo() >= 1400) {
                         pagarFuncionario();
                     }
                 }
@@ -51,7 +51,7 @@ public class Loja {
     }
 
     public void pagarFuncionario() {
-        if (conta.getSaldo() > 1400.00) {
+        if (conta.getSaldo() >= 1400.00) {
             if (salarioPagoFuncionario1 > salarioPagoFuncionario2 && conta.getSaldo() >= 1400) {
                 banco.transferir(conta, funcionario2.getConta(), salarioFuncionario);
                 funcionario2.investir();
