@@ -6,7 +6,7 @@ public class Funcionario extends Thread{
     private Conta contaInvestimento;
     private Banco banco;
 
-    public Funcionario(String  id){
+    public Funcionario(String  id, Banco banco){
         this.id = "Funcionario" + id;
         this.idInvestimento = id + "Investimento";
         try {
@@ -19,7 +19,7 @@ public class Funcionario extends Thread{
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
-        this.banco = new Banco();
+        this.banco = banco;
     }
 
     public void investir(){
