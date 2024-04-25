@@ -14,8 +14,8 @@ public class Loja {
     public Loja(String id, Banco banco){
         this.id = id;
         this.banco = banco;
-        this.funcionario1 = new Funcionario( "Funcionario1", banco);
-        this.funcionario2 = new Funcionario("Funcionario2", banco);
+        this.funcionario1 = new Funcionario( "Funcionario1" + id, banco);
+        this.funcionario2 = new Funcionario("Funcionario2" + id, banco);
         try {
             this.conta = new Conta(00.00, id);
         } catch (Exception e) {
@@ -26,7 +26,7 @@ public class Loja {
             @Override
             public void propertyChange(PropertyChangeEvent evt) {
                 if (evt.getPropertyName().equals("saldo")) {
-                    if (conta.getSaldo() >= 1400) {
+                    if (conta.getSaldo() > 1400) {
                         pagarFuncionario();
                     }
                 }
@@ -40,6 +40,14 @@ public class Loja {
 
     public void setConta(Conta conta) {
         this.conta = conta;
+    }
+
+    public Funcionario getFuncionario1() {
+        return funcionario1;
+    }
+
+    public Funcionario getFuncionario2() {
+        return funcionario2;
     }
 
     public void pagarFuncionario() {

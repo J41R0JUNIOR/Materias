@@ -31,6 +31,10 @@ public class Funcionario extends Thread{
         return conta;
     }
 
+    public Conta getContaInvestimento() {
+        return contaInvestimento;
+    }
+
     public void investir(){
         banco.transferir(conta, contaInvestimento, salario * 0.2);
     }
