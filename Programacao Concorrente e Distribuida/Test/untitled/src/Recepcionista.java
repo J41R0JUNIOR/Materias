@@ -94,10 +94,12 @@ public class Recepcionista extends Thread {
     // Método para alocar um subgrupo em um quarto
     private void alocaSubgrupo(List<Hospede> subgrupo) throws InterruptedException {
         Quarto quarto = hotel.alocaQuarto(subgrupo);
-        System.out.println("Alocando " + subgrupo.size() + " membros para o quarto " + quarto.getNumero());
-        for (Hospede hospede : subgrupo) {
-            System.out.println("Quarto " + quarto.getNumero() + " alocado para o grupo " + hospede.getNumeroGrupo()
-                    + " com o hóspede: " + hospede.getNome());
+        if (quarto != null) {
+            System.out.println("Alocando " + subgrupo.size() + " membros para o quarto " + quarto.getNumero());
+            for (Hospede hospede : subgrupo) {
+                System.out.println("Quarto " + quarto.getNumero() + " alocado para o grupo " + hospede.getNumeroGrupo()
+                        + " com o hóspede: " + hospede.getNome());
+            }
         }
     }
 }
