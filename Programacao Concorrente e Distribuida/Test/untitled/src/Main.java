@@ -53,7 +53,7 @@ public class Main {
         for (Quarto quarto : hotel.getQuartos()) {
             List<Hospede> hospedes = quarto.getHospedes();
             if (!hospedes.isEmpty()) {
-                System.out.println("Hóspedes do quarto " + quarto.getNumero() + " estão retornando.");
+//                System.out.println("Hóspedes do quarto " + quarto.getNumero() + " estão retornando.");
                 for (Hospede hospede : hospedes) {
                     hospede.retornarParaQuarto(); // Método que simula o retorno para o quarto
                 }
