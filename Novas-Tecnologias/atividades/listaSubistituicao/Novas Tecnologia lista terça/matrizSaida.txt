@@ -6,7 +6,7 @@ Matriz:
  [16  9  4  1  0]]
 
 Quantidade de múltiplos de 4: 3
-Múltiplos de 4: [0, 4, 16]
+Múltiplos de 4: [0, 16, 4]
 
 Linha com menor soma: 2, Soma: 10
 
