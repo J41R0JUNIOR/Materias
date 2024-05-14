@@ -1,0 +1,18 @@
+Matriz:
+[[ 0  1  4  9 16]
+ [ 1  0  1  4  9]
+ [ 4  1  0  1  4]
+ [ 9  4  1  0  1]
+ [16  9  4  1  0]]
+
+Quantidade de múltiplos de 4: 3
+Múltiplos de 4: [0, 4, 16]
+
+Linha com menor soma: 2, Soma: 10
+
+Maior valor coluna a coluna:
+Coluna 1: 16
+Coluna 2: 9
+Coluna 3: 4
+Coluna 4: 9
+Coluna 5: 16

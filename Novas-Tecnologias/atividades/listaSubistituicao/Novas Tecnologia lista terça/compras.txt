@@ -1,0 +1,7 @@
+farinha 1 arroz 1 leite 3 pão 5 carne 2
+manteiga 3 leite 2 ovo 12 pão 3
+açucar 3 leite 2 pão 2 carne 1 feijão 2
+leite 2 macarrão 2 suco 3 ovo 12 pão 3
+pão 3 refrigerante 3 leite 2 sabão 5
+leite 3 peixe 3 pão 3 sorvete 2 tomate 10
+
