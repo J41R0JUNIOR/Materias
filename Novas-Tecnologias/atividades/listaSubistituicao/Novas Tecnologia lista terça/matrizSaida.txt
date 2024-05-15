@@ -4,15 +4,6 @@ Matriz:
  [ 4  1  0  1  4]
  [ 9  4  1  0  1]
  [16  9  4  1  0]]
-
-Quantidade de múltiplos de 4: 3
-Múltiplos de 4: [0, 16, 4]
-
-Linha com menor soma: 2, Soma: 10
-
-Maior valor coluna a coluna:
-Coluna 1: 16
-Coluna 2: 9
-Coluna 3: 4
-Coluna 4: 9
-Coluna 5: 16
+A matriz tem 3 multiplos de 4 que sao: [0, 4, 16]
+Linha com menor soma é a 2, cuja soma é 10
+Os maiores valores de cada coluna são [16  9  4  9 16]: 

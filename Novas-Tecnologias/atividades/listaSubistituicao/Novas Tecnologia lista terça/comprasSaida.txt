@@ -1,0 +1,3 @@
+leite pão 
+Totais comprados de cada produto:
+{'farinha': 1, 'arroz': 1, 'leite': 14, 'pão': 19, 'carne': 3, 'manteiga': 3, 'ovo': 24, 'açucar': 3, 'feijão': 2, 'macarrão': 2, 'suco': 3, 'refrigerante': 3, 'sabão': 5, 'peixe': 3, 'sorvete': 2, 'tomate': 10}
