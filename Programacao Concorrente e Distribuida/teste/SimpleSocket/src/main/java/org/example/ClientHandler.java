@@ -41,7 +41,6 @@ public class ClientHandler implements Runnable {
 
                 String[] partsOfMessage = messageFromClient.split(": ");
 
-
                 if (partsOfMessage[1] != null && partsOfMessage[1].toLowerCase().equalsIgnoreCase(listarLivro)) {
                     searchBooks();
                     messageFromClient = clientUsername + " esta listando os livros";
@@ -64,8 +63,7 @@ public class ClientHandler implements Runnable {
                 System.out.println("Arquivo livros.json não encontrado no caminho: " + file.getAbsolutePath());
                 return;
             }
-
-            // Ler o conteúdo do arquivo e imprimir
+            //ler arquivo json
             BufferedReader reader = new BufferedReader(new FileReader(file));
             StringBuilder jsonContent = new StringBuilder();
             String line;
@@ -73,7 +71,6 @@ public class ClientHandler implements Runnable {
                 jsonContent.append(line);
             }
             reader.close();
-            System.out.println("Conteúdo do arquivo JSON: " + jsonContent.toString());
 
             // Carregar o arquivo JSON
             Gson gson = new Gson();
