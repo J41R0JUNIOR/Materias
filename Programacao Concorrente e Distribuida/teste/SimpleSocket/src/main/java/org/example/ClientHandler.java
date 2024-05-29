@@ -34,14 +34,12 @@ public class ClientHandler implements Runnable {
         while (socket.isConnected()) {
             try {
                 messageFromClient = bufferedReader.readLine();
-                System.out.println("Mensagem recebida: '" + messageFromClient + "'");
 
                 if (messageFromClient != null && messageFromClient.toLowerCase().contains("listar livro")) {
-                    System.out.println("Entrou no if: 'pesquisar livro'");
                     searchBooks();
+                    messageFromClient = clientUsername + " está listando livros";
+                    broadcastMessage(messageFromClient);
                 } else {
-                    System.out.println("Entrou no else");
-                    System.out.println("Mensagem que chegou: " + messageFromClient);
                     broadcastMessage(messageFromClient);
                 }
             } catch (IOException e) {
