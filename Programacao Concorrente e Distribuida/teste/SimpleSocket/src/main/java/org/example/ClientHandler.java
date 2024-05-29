@@ -14,9 +14,11 @@ public class ClientHandler implements Runnable {
     private BufferedWriter bufferedWriter;
     private String clientUsername;
 
+
     public ClientHandler(Socket socket) {
         try {
             this.socket = socket;
+
             this.bufferedWriter = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
             this.bufferedReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             this.clientUsername = bufferedReader.readLine();
@@ -34,17 +36,17 @@ public class ClientHandler implements Runnable {
         while (socket.isConnected()) {
             try {
                 messageFromClient = bufferedReader.readLine();
+                String listarLivro = String.valueOf(RespostaEsperada.LISTAR_LIVROS.getDescricao());
 
-                String listarLivro = "listar livros";
-
-                System.out.println( "mensagem recebida: " + messageFromClient + "\n mensagem esperada: " + listarLivro);
-
+                //dividindo e pegando a mensagem em sí e ignorando o nome que vem junto
                 String[] partsOfMessage = messageFromClient.split(": ");
+                String messageToAnalise = partsOfMessage[1];
 
-                if (partsOfMessage[1] != null && partsOfMessage[1].toLowerCase().equalsIgnoreCase(listarLivro)) {
+                if (messageToAnalise != null && messageToAnalise.toLowerCase().equalsIgnoreCase(listarLivro)) {
                     searchBooks();
                     messageFromClient = clientUsername + " esta listando os livros";
                     broadcastMessage(messageFromClient);
+
                 } else {
                     broadcastMessage(messageFromClient);
                 }
