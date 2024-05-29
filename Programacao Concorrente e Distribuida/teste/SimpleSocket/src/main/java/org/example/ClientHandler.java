@@ -35,9 +35,16 @@ public class ClientHandler implements Runnable {
             try {
                 messageFromClient = bufferedReader.readLine();
 
-                if (messageFromClient != null && messageFromClient.toLowerCase().contains("listar livro")) {
+                String listarLivro = "listar livros";
+
+                System.out.println( "mensagem recebida: " + messageFromClient + "\n mensagem esperada: " + listarLivro);
+
+                String[] partsOfMessage = messageFromClient.split(": ");
+
+
+                if (partsOfMessage[1] != null && partsOfMessage[1].toLowerCase().equalsIgnoreCase(listarLivro)) {
                     searchBooks();
-                    messageFromClient = clientUsername + " está listando livros";
+                    messageFromClient = clientUsername + " esta listando os livros";
                     broadcastMessage(messageFromClient);
                 } else {
                     broadcastMessage(messageFromClient);
