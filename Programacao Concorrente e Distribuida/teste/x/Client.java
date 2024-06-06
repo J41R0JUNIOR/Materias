@@ -6,18 +6,18 @@ public class Client {
     private Socket socket;
     private BufferedReader bufferedReader;
     private BufferedInputStream bufferedInputStream;
-    private PrintWriter mandarProServidor;
-    String mensagem;
+    private PrintWriter sendToServer;
+    String message;
 
     public Client(Socket socket) {
         try {
             this.socket = socket;
-            this.mensagem = "Opa meu chapa";
+            this.message = "Opa meu chapa";
             this.bufferedInputStream = new BufferedInputStream(socket.getInputStream());
             this.bufferedReader = new BufferedReader(new InputStreamReader(bufferedInputStream));
-            this.mandarProServidor = new PrintWriter(socket.getOutputStream(), true);
+            this.sendToServer = new PrintWriter(socket.getOutputStream(), true);
 
-            mandarProServidor.println(mensagem);
+            sendToServer.println(message);
 
             System.out.println("Server Answer: " + bufferedReader.readLine());
         
@@ -25,6 +25,7 @@ public class Client {
 
         } catch (IOException e) {
             closeEverything(socket, bufferedReader, bufferedInputStream);
+            e.printStackTrace();
         }
     }
 
