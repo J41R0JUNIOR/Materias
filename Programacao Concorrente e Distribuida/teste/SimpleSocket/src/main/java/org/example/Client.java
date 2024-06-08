@@ -32,7 +32,7 @@ public class Client {
             Scanner scanner = new Scanner(System.in);
             while (socket.isConnected()) {
                 String messageToSend = scanner.nextLine();
-                bufferedWriter.write(userName + ": " + messageToSend);
+                bufferedWriter.write(messageToSend);
                 bufferedWriter.newLine();
                 bufferedWriter.flush();
             }
@@ -76,7 +76,7 @@ public class Client {
 
     public static void main(String[] args) throws IOException {
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Enter your username for the group chat: ");
+        System.out.println("Enter your name for enter the library: ");
         String username = scanner.nextLine();
         Socket socket = new Socket("localhost", 1111);
         Client client = new Client(socket, username);

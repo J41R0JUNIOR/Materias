@@ -1,9 +1,9 @@
 package org.example;
 
 public enum RespostaEsperada {
-    LISTAR_LIVROS("listar livros"),
-    ALUGAR_LIVRO("alugar livro"),
-    DEVOLVER_LIVRO("devolver livro"),
+    LISTAR_LIVROS("1"),
+    ALUGAR_LIVRO("2"),
+    DEVOLVER_LIVRO("3"),
     CADASTRAR_LIVRO("cadastrar livro");
 
     private String descricao;
