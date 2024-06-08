@@ -1,6 +1,6 @@
 package org.example;
 
-public enum EstadoCliente {
+public enum ClientState {
     NORMAL("normal"),
     ALUGANDO_LIVRO("alugando livro"),
     DEVOLVENDO_LIVRO("devolvendo livro"),
@@ -8,7 +8,7 @@ public enum EstadoCliente {
 
     private String descricao;
 
-    EstadoCliente(String descricao) {
+    ClientState(String descricao) {
         this.descricao = descricao;
     }
 

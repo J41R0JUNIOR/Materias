@@ -5,10 +5,6 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.Objects;
 
-import com.google.gson.Gson;
-import com.google.gson.JsonObject;
-import com.google.gson.reflect.TypeToken;
-
 public class ClientHandler implements Runnable {
     public static ArrayList<ClientHandler> clientHandlers = new ArrayList<>();
     private Socket socket;
@@ -21,7 +17,7 @@ public class ClientHandler implements Runnable {
     public ClientHandler(Socket socket) {
         try {
             this.socket = socket;
-            this.clientState = String.valueOf(EstadoCliente.NORMAL.getDescricao());
+            this.clientState = String.valueOf(ClientState.NORMAL.getDescricao());
 
             this.bufferedWriter = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
             this.bufferedReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
@@ -36,55 +32,58 @@ public class ClientHandler implements Runnable {
     @Override
     public void run() {
         String message;
-        String listarLivro = String.valueOf(RespostaEsperada.LISTAR_LIVROS.getDescricao());
-        String alugarLivro = String.valueOf(RespostaEsperada.ALUGAR_LIVRO.getDescricao());
-        String devolverLivro = String.valueOf(RespostaEsperada.DEVOLVER_LIVRO.getDescricao());
-        String sair = String.valueOf(RespostaEsperada.SAIR.getDescricao());
+        String listBooks = String.valueOf(ClientOptions.LIST_BOOKS.getDescription());
+        String rentBook = String.valueOf(ClientOptions.RENT_BOOKS.getDescription());
+        String returnBook = String.valueOf(ClientOptions.RETURN_BOOKS.getDescription());
+        String out = String.valueOf(ClientOptions.OUT.getDescription());
 
         while (socket.isConnected()) {
             try {
-                if (clientState.equals(EstadoCliente.NORMAL.getDescricao())) {
+                if (clientState.equals(ClientState.NORMAL.getDescricao())) {
                     showOptionsToClient();
-                } else if (clientState.equals(EstadoCliente.ALUGANDO_LIVRO.getDescricao())) {
+
+                } else if (clientState.equals(ClientState.ALUGANDO_LIVRO.getDescricao())) {
                     message = bufferedReader.readLine();
                     if (message != null) {
-                        boolean success = LivroHandler.alugarLivro(message);
-                        message = success ? clientUsername + " alugou o livro: " + message : "Falha ao alugar o livro: " + message;
+                        boolean success = BookHandler.rentBook(message);
+                        message = success ? clientUsername + " rented a book: " + message : "Failed to rent book: " + message;
                         broadcastMessage(message);
-                        clientState = EstadoCliente.NORMAL.getDescricao();
+                        clientState = ClientState.NORMAL.getDescricao();
                         continue;
+
                     }
-                } else if (clientState.equals(EstadoCliente.DEVOLVENDO_LIVRO.getDescricao())) {
+                } else if (clientState.equals(ClientState.DEVOLVENDO_LIVRO.getDescricao())) {
                     // Implementar lógica para devolver livro
-                } else if (clientState.equals(EstadoCliente.CADASTRANDO_LIVRO.getDescricao())) {
+
+                } else if (clientState.equals(ClientState.CADASTRANDO_LIVRO.getDescricao())) {
                     // Implementar lógica para cadastrar livro
+
                 }
 
 
                 message = bufferedReader.readLine();
 
-
                 if (message != null) {
-                    if (message.equalsIgnoreCase(listarLivro) && Objects.equals(clientState, EstadoCliente.NORMAL.getDescricao())) {
-                        ArrayList<Livro> livros = LivroHandler.searchBooks();
-                        LivroHandler.sendBooks(bufferedWriter, livros);
+                    if (message.equalsIgnoreCase(listBooks) && Objects.equals(clientState, ClientState.NORMAL.getDescricao())) {
+                        ArrayList<Book> livros = BookHandler.searchBooks();
+                        BookHandler.sendBooks(bufferedWriter, livros);
 
-                    } else if (message.startsWith(alugarLivro)) {
-                        clientState = EstadoCliente.ALUGANDO_LIVRO.getDescricao();
-                        broadcastMessage("Digite o nome do livro");
+                    } else if (message.startsWith(rentBook)) {
+                        clientState = ClientState.ALUGANDO_LIVRO.getDescricao();
+                        broadcastMessage("Type the name of the book");
 
-                    } else if (message.startsWith(devolverLivro)) {
-                        clientState = EstadoCliente.DEVOLVENDO_LIVRO.getDescricao();
-                        String titulo = message.replace(devolverLivro, "").trim();
-                        boolean success = LivroHandler.devolverLivro(titulo);
-                        message = success ? clientUsername + " devolveu o livro: " + titulo : "Falha ao devolver o livro: " + titulo;
+                    } else if (message.startsWith(returnBook)) {
+                        clientState = ClientState.DEVOLVENDO_LIVRO.getDescricao();
+                        String titulo = message.replace(returnBook, "").trim();
+                        boolean success = BookHandler.returnBook(titulo);
+                        message = success ? clientUsername + " returned a book: " + titulo : "Failed to return the book: " + titulo;
                         broadcastMessage(message);
 
-                    } else if (message.startsWith(sair)) {
-                        removeClientHandler();
+                    } else if (message.startsWith(out)) {
+                        closeEverything(socket, bufferedReader, bufferedWriter);
 
                     } else {
-                        broadcastMessage("Erro ao selecionar");
+                        broadcastMessage("Type a real option");
                     }
                 }
             } catch (IOException e) {
@@ -96,7 +95,7 @@ public class ClientHandler implements Runnable {
 
 
     private void showOptionsToClient(){
-        broadcastMessage("Opções Disponíveis\n1 - Listar livros\n2 - Alugar livro\n3 - Devolver livro\n4 - Cadastrar livro\n5 - Sair");
+        broadcastMessage("Options\n1 - List books\n2 - Rent book\n3 - Return book\n4 - Register a book\n5 - Out");
     }
 
     public void broadcastMessage(String messageToSend) {
@@ -114,20 +113,9 @@ public class ClientHandler implements Runnable {
     }
 
     public void removeClientHandler() {
-        try {
-            broadcastMessage("Saindo da livraria");
-            clientHandlers.remove(this); // Remove este cliente da lista
-
-            if (socket != null && !socket.isClosed()) {
-                socket.close(); // Fecha o socket
-                System.out.println("Socket fechado para " + clientUsername);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        broadcastMessage("Leaving the library (please type enter)");
+        clientHandlers.remove(this);
     }
-
-
 
     public void closeEverything(Socket socket, BufferedReader bufferedReader, BufferedWriter bufferedWriter) {
         removeClientHandler();
@@ -138,7 +126,7 @@ public class ClientHandler implements Runnable {
             if (bufferedWriter != null) {
                 bufferedWriter.close();
             }
-            if (socket != null) {
+            if (socket != null && socket.isConnected()) {
                 socket.close();
             }
         } catch (IOException e) {

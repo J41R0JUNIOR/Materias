@@ -56,12 +56,12 @@ public class Client {
 
                         } else {
                             closeEverything(socket, bufferedReader, bufferedWriter);
-                            break; // Sai do loop se a mensagem for null
+                            break;
 
                         }
                     } catch (IOException e) {
                         closeEverything(socket, bufferedReader, bufferedWriter);
-                        break; // Sai do loop em caso de exceção
+                        break;
                     }
                 }
             }
