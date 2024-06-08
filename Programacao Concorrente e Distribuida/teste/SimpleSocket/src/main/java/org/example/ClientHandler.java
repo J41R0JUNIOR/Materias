@@ -35,41 +35,53 @@ public class ClientHandler implements Runnable {
     @Override
     public void run() {
         String messageFromClient;
+
+        String listarLivro = String.valueOf(RespostaEsperada.LISTAR_LIVROS.getDescricao());
+        String alugarLivro = String.valueOf(RespostaEsperada.ALUGAR_LIVRO.getDescricao());
+        String devolverLivro = String.valueOf(RespostaEsperada.DEVOLVER_LIVRO.getDescricao());
+
         while (socket.isConnected()) {
             try {
-                if (clientState.equals(EstadoCliente.NORMAL.getDescricao())) {
-                    showOptionsToClient();
-                }else{
-                    broadcastMessage("Estado atual " + clientState);
-                }
-
-//                showOptionsToClient();
-
                 messageFromClient = bufferedReader.readLine();
 
                 String[] partsOfMessage = messageFromClient.split(": ");
                 String messageToAnalise = partsOfMessage[1];
 
+
+                if (clientState.equals(EstadoCliente.NORMAL.getDescricao())) {
+                    showOptionsToClient();
+                }else if(clientState.equals(EstadoCliente.ALUGANDO_LIVRO.getDescricao())){
+                    broadcastMessage("Digite o nome do livro");
+
+                    boolean success = LivroHandler.alugarLivro(titulo);
+                    messageFromClient = success ? clientUsername + " alugou o livro: " + titulo
+                            : "Falha ao alugar o livro: " + titulo;
+                    broadcastMessage(messageFromClient);
+                }else{
+                    broadcastMessage("Estado atual " + clientState);
+                }
+
+
+
+
                 if (messageToAnalise != null) {
-                    String listarLivro = String.valueOf(RespostaEsperada.LISTAR_LIVROS.getDescricao());
-                    String alugarLivro = String.valueOf(RespostaEsperada.ALUGAR_LIVRO.getDescricao());
-                    String devolverLivro = String.valueOf(RespostaEsperada.DEVOLVER_LIVRO.getDescricao());
+
 
                     if (messageToAnalise.equalsIgnoreCase(listarLivro) && Objects.equals(clientState, EstadoCliente.NORMAL.getDescricao())) {
+                        clientState = EstadoCliente.NORMAL.getDescricao();
                         ArrayList<Livro> livros = LivroHandler.searchBooks();
                         LivroHandler.sendBooks(bufferedWriter, livros);
                         messageFromClient = clientUsername + " está listando os livros";
                         broadcastMessage(messageFromClient);
-                        clientState = EstadoCliente.NORMAL.getDescricao();
 
                     } else if (messageToAnalise.startsWith(alugarLivro)) {
                         clientState = EstadoCliente.ALUGANDO_LIVRO.getDescricao();
 
-                        String titulo = messageToAnalise.replace(alugarLivro, "").trim();
-                        boolean success = LivroHandler.alugarLivro(titulo);
-                        messageFromClient = success ? clientUsername + " alugou o livro: " + titulo
-                                : "Falha ao alugar o livro: " + titulo;
-                        broadcastMessage(messageFromClient);
+//                        String titulo = messageToAnalise.replace(alugarLivro, "").trim();
+//                        boolean success = LivroHandler.alugarLivro(titulo);
+//                        messageFromClient = success ? clientUsername + " alugou o livro: " + titulo
+//                                : "Falha ao alugar o livro: " + titulo;
+//                        broadcastMessage(messageFromClient);
 
                     } else if (messageToAnalise.startsWith(devolverLivro)) {
                         clientState = EstadoCliente.DEVOLVENDO_LIVRO.getDescricao();
@@ -86,6 +98,10 @@ public class ClientHandler implements Runnable {
                 break;
             }
         }
+    }
+
+    private void estadoAlugando(){
+
     }
 
     private void showOptionsToClient(){

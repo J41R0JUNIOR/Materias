@@ -10,6 +10,7 @@ import java.util.ArrayList;
 public class LivroHandler {
 
     private static final String LIVROS_FILE_PATH = "livros.json";
+    private static final String LIVROS_ALUGADOS_FILE_PATH = "alugueis.json";
 
 
     public static ArrayList<Livro> searchBooks() {
