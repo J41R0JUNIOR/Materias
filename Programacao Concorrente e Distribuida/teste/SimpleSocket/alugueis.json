@@ -1,0 +1,12 @@
+{
+  "alugueis": [
+    {
+      "cliente": "cliente1",
+      "livro": "Meditações"
+    },
+    {
+      "cliente": "cliente2",
+      "livro": "Orgulho e Preconceito"
+    }
+  ]
+}

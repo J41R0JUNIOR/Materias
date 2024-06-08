@@ -3,6 +3,8 @@ package org.example;
 import java.io.*;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.Objects;
+
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
@@ -13,18 +15,18 @@ public class ClientHandler implements Runnable {
     private BufferedReader bufferedReader;
     private BufferedWriter bufferedWriter;
     private String clientUsername;
+    private String clientState;
 
 
     public ClientHandler(Socket socket) {
         try {
             this.socket = socket;
-
+            this.clientState = String.valueOf(EstadoCliente.NORMAL.getDescricao());
             this.bufferedWriter = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
             this.bufferedReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             this.clientUsername = bufferedReader.readLine();
             System.out.println("New client username: " + clientUsername);
             clientHandlers.add(this);
-            broadcastMessage("SERVER: " + clientUsername + " has entered the chat!");
         } catch (IOException e) {
             closeEverything(socket, bufferedReader, bufferedWriter);
         }
@@ -35,20 +37,49 @@ public class ClientHandler implements Runnable {
         String messageFromClient;
         while (socket.isConnected()) {
             try {
-                messageFromClient = bufferedReader.readLine();
-                String listarLivro = String.valueOf(RespostaEsperada.LISTAR_LIVROS.getDescricao());
+                if (clientState.equals(EstadoCliente.NORMAL.getDescricao())) {
+                    showOptionsToClient();
+                }else{
+                    broadcastMessage("Estado atual " + clientState);
+                }
 
-                //dividindo e pegando a mensagem em sí e ignorando o nome que vem junto
+//                showOptionsToClient();
+
+                messageFromClient = bufferedReader.readLine();
+
                 String[] partsOfMessage = messageFromClient.split(": ");
                 String messageToAnalise = partsOfMessage[1];
 
-                if (messageToAnalise != null && messageToAnalise.toLowerCase().equalsIgnoreCase(listarLivro)) {
-                    searchBooks();
-                    messageFromClient = clientUsername + " esta listando os livros";
-                    broadcastMessage(messageFromClient);
+                if (messageToAnalise != null) {
+                    String listarLivro = String.valueOf(RespostaEsperada.LISTAR_LIVROS.getDescricao());
+                    String alugarLivro = String.valueOf(RespostaEsperada.ALUGAR_LIVRO.getDescricao());
+                    String devolverLivro = String.valueOf(RespostaEsperada.DEVOLVER_LIVRO.getDescricao());
 
-                } else {
-                    broadcastMessage(messageFromClient);
+                    if (messageToAnalise.equalsIgnoreCase(listarLivro) && Objects.equals(clientState, EstadoCliente.NORMAL.getDescricao())) {
+                        ArrayList<Livro> livros = LivroHandler.searchBooks();
+                        LivroHandler.sendBooks(bufferedWriter, livros);
+                        messageFromClient = clientUsername + " está listando os livros";
+                        broadcastMessage(messageFromClient);
+                        clientState = EstadoCliente.NORMAL.getDescricao();
+
+                    } else if (messageToAnalise.startsWith(alugarLivro)) {
+                        clientState = EstadoCliente.ALUGANDO_LIVRO.getDescricao();
+
+                        String titulo = messageToAnalise.replace(alugarLivro, "").trim();
+                        boolean success = LivroHandler.alugarLivro(titulo);
+                        messageFromClient = success ? clientUsername + " alugou o livro: " + titulo
+                                : "Falha ao alugar o livro: " + titulo;
+                        broadcastMessage(messageFromClient);
+
+                    } else if (messageToAnalise.startsWith(devolverLivro)) {
+                        clientState = EstadoCliente.DEVOLVENDO_LIVRO.getDescricao();
+
+                        String titulo = messageToAnalise.replace(devolverLivro, "").trim();
+                        boolean success = LivroHandler.devolverLivro(titulo);
+                        messageFromClient = success ? clientUsername + " devolveu o livro: " + titulo
+                                : "Falha ao devolver o livro: " + titulo;
+                        broadcastMessage(messageFromClient);
+                    }
                 }
             } catch (IOException e) {
                 closeEverything(socket, bufferedReader, bufferedWriter);
@@ -57,44 +88,14 @@ public class ClientHandler implements Runnable {
         }
     }
 
-    public void searchBooks() {
-        try {
-            File file = new File("livros.json");
-
-            if (!file.exists()) {
-                System.out.println("Arquivo livros.json não encontrado no caminho: " + file.getAbsolutePath());
-                return;
-            }
-            //ler arquivo json
-            BufferedReader reader = new BufferedReader(new FileReader(file));
-            StringBuilder jsonContent = new StringBuilder();
-            String line;
-            while ((line = reader.readLine()) != null) {
-                jsonContent.append(line);
-            }
-            reader.close();
-
-            // Carregar o arquivo JSON
-            Gson gson = new Gson();
-            // Usar um contêiner auxiliar para o array de livros
-            JsonObject jsonObject = gson.fromJson(jsonContent.toString(), JsonObject.class);
-            ArrayList<Livro> livros = gson.fromJson(jsonObject.get("livros"), new TypeToken<ArrayList<Livro>>() {}.getType());
-
-            // Enviar a lista de livros para o cliente
-            for (Livro livro : livros) {
-                bufferedWriter.write(livro.toString());
-                bufferedWriter.newLine();
-                bufferedWriter.flush();
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    private void showOptionsToClient(){
+        broadcastMessage("Opções Disponíveis\n1 - Listar livros\n2 - Alugar livro\n3 - Devolver livro");
     }
 
     public void broadcastMessage(String messageToSend) {
         for (ClientHandler clientHandler : clientHandlers) {
             try {
-                if (!clientHandler.clientUsername.equals(clientUsername)) {
+                if (clientHandler.clientUsername.equals(clientUsername)) {
                     clientHandler.bufferedWriter.write(messageToSend);
                     clientHandler.bufferedWriter.newLine();
                     clientHandler.bufferedWriter.flush();
