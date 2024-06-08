@@ -32,8 +32,8 @@ public class BookHandler {
     public static boolean rentBook(String titulo) {
         ArrayList<Book> books = loadBooksFromFile();
         for (Book book : books) {
-            if (book.getTitulo().equalsIgnoreCase(titulo) && book.getExemplares() > 0) {
-                book.setExemplares(book.getExemplares() - 1);
+            if (book.getTittle().equalsIgnoreCase(titulo) && book.getCopies() > 0) {
+                book.setCopies(book.getCopies() - 1);
                 saveBooksToFile(books);
                 return true;
             }
@@ -44,8 +44,8 @@ public class BookHandler {
     public static boolean returnBook(String titulo) {
         ArrayList<Book> books = loadBooksFromFile();
         for (Book book : books) {
-            if (book.getTitulo().equalsIgnoreCase(titulo)) {
-                book.setExemplares(book.getExemplares() + 1);
+            if (book.getTittle().equalsIgnoreCase(titulo)) {
+                book.setCopies(book.getCopies() + 1);
                 saveBooksToFile(books);
                 return true;
             }
@@ -73,7 +73,7 @@ public class BookHandler {
 
             Gson gson = new Gson();
             JsonObject jsonObject = gson.fromJson(jsonContent.toString(), JsonObject.class);
-            books = gson.fromJson(jsonObject.get("livros"), new TypeToken<ArrayList<Book>>() {}.getType());
+            books = gson.fromJson(jsonObject.get("books"), new TypeToken<ArrayList<Book>>() {}.getType());
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -84,7 +84,7 @@ public class BookHandler {
         try {
             Gson gson = new Gson();
             JsonObject jsonObject = new JsonObject();
-            jsonObject.add("livros", gson.toJsonTree(livros));
+            jsonObject.add("books", gson.toJsonTree(livros));
 
             BufferedWriter writer = new BufferedWriter(new FileWriter(BOOKS_FILE_PATH));
             writer.write(gson.toJson(jsonObject));

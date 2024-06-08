@@ -1,46 +1,46 @@
 package org.example;
 
 public class Book {
-    private String titulo;
-    private String autor;
-    private String genero;
-    private int exemplares;
+    private String tittle;
+    private String author;
+    private String genre;
+    private int copies;
 
-    public String getTitulo() {
-        return titulo;
+    public String getTittle() {
+        return tittle;
     }
 
-    public void setTitulo(String titulo) {
-        this.titulo = titulo;
+    public void setTittle(String tittle) {
+        this.tittle = tittle;
     }
 
-    public String getAutor() {
-        return autor;
+    public String getAuthor() {
+        return author;
     }
 
-    public void setAutor(String autor) {
-        this.autor = autor;
+    public void setAuthor(String author) {
+        this.author = author;
     }
 
-    public String getGenero() {
-        return genero;
+    public String getGenre() {
+        return genre;
     }
 
-    public void setGenero(String genero) {
-        this.genero = genero;
+    public void setGenre(String genre) {
+        this.genre = genre;
     }
 
-    public int getExemplares() {
-        return exemplares;
+    public int getCopies() {
+        return copies;
     }
 
-    public void setExemplares(int exemplares) {
-        this.exemplares = exemplares;
+    public void setCopies(int copies) {
+        this.copies = copies;
     }
 // Getters e Setters
 
     @Override
     public String toString() {
-        return "Title: " + titulo + ", Author: " + autor + ", Genre: " + genero + ", Copies: " + exemplares;
+        return "Title: " + tittle + ", Author: " + author + ", Genre: " + genre + ", Copies: " + copies;
     }
 }
