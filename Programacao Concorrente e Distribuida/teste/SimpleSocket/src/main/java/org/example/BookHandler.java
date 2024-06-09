@@ -30,8 +30,8 @@ public class BookHandler {
 
     public static boolean rentBook(String titulo, String clientName) {
         ArrayList<Book> books = loadBooksFromFile();
-
         ArrayList<ClientInDebt> clientsInDebt = loadCostumersInDebtFromFile();
+
         boolean isClientInDebt = clientInDebt(clientsInDebt, clientName);
 
         if (!isClientInDebt) {
@@ -39,11 +39,18 @@ public class BookHandler {
                 if (book.getTittle().equalsIgnoreCase(titulo) && book.getCopies() > 0) {
                     book.setCopies(book.getCopies() - 1);
                     saveBooksToFile(books);
+                    addRentRecord(clientName, titulo);
                     return true;
                 }
             }
         }
         return false;
+    }
+
+    private static void addRentRecord(String clientName, String bookTitle) {
+        ArrayList<ClientInDebt> rentRecords = loadRentRecordsFromFile();
+        rentRecords.add(new ClientInDebt(clientName, bookTitle));
+        saveRentRecordsToFile(rentRecords);
     }
 
     public static boolean clientInDebt(ArrayList<ClientInDebt> clients, String clientName) {
@@ -126,6 +133,52 @@ public class BookHandler {
             e.printStackTrace();
         }
         return clientsInDebt;
+    }
+
+    private static ArrayList<ClientInDebt> loadRentRecordsFromFile() {
+        ArrayList<ClientInDebt> rentRecords = new ArrayList<>();
+        try {
+            File file = new File(RENT_BOOKS_FILE_PATH);
+
+            if (!file.exists()) {
+                System.out.println("File alugueis.json not found at the path: " + file.getAbsolutePath());
+                return rentRecords;
+            }
+
+            BufferedReader reader = new BufferedReader(new FileReader(file));
+            StringBuilder jsonContent = new StringBuilder();
+            String line;
+            while ((line = reader.readLine()) != null) {
+                jsonContent.append(line);
+            }
+            reader.close();
+
+            System.out.println("JSON Content: " + jsonContent.toString()); // Debug statement
+
+            Gson gson = new Gson();
+            JsonObject jsonObject = gson.fromJson(jsonContent.toString(), JsonObject.class);
+            System.out.println("Parsed JSON Object: " + jsonObject); // Debug statement
+
+            rentRecords = gson.fromJson(jsonObject.get("rent"), new TypeToken<ArrayList<ClientInDebt>>() {}.getType());
+            System.out.println("Rent records loaded: " + rentRecords); // Debug statement
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return rentRecords;
+    }
+
+    private static void saveRentRecordsToFile(ArrayList<ClientInDebt> rentRecords) {
+        try {
+            Gson gson = new Gson();
+            JsonObject jsonObject = new JsonObject();
+            jsonObject.add("rent", gson.toJsonTree(rentRecords));
+
+            BufferedWriter writer = new BufferedWriter(new FileWriter(RENT_BOOKS_FILE_PATH));
+            writer.write(gson.toJson(jsonObject));
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private static void saveBooksToFile(ArrayList<Book> books) {

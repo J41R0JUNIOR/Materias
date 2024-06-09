@@ -1,12 +1,4 @@
-{
-  "rent": [
-    {
-      "client": "cliente1",
-      "book": "Meditações"
-    },
-    {
-      "client": "cliente2",
-      "book": "Orgulho e Preconceito"
-    }
-  ]
-}
+{"rent":[{
+  "client":"cliente1","book":"Meditações"},
+  {"client":"cliente2","book":"Orgulho e Preconceito"},
+  {"client":"jairo","book":"Meditações"}]}
