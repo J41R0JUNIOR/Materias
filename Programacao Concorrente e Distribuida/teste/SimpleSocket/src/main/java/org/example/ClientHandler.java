@@ -45,7 +45,7 @@ public class ClientHandler implements Runnable {
                 } else if (clientState.equals(ClientState.ALUGANDO_LIVRO.getDescricao())) {
                     message = bufferedReader.readLine();
                     if (message != null) {
-                        boolean success = BookHandler.rentBook(message);
+                        boolean success = BookHandler.rentBook(message, clientUsername);
                         message = success ? clientUsername + " rented a book: " + message : "Failed to rent book: " + message;
                         broadcastMessage(message);
                         clientState = ClientState.NORMAL.getDescricao();
@@ -95,7 +95,7 @@ public class ClientHandler implements Runnable {
 
 
     private void showOptionsToClient(){
-        broadcastMessage("Options\n1 - List books\n2 - Rent book\n3 - Return book\n4 - Register a book\n5 - Out");
+        broadcastMessage("\n\nOptions\n1 - List books\n2 - Rent book\n3 - Return book\n4 - Register a book\n5 - Out");
     }
 
     public void broadcastMessage(String messageToSend) {

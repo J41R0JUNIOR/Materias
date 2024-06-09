@@ -1,12 +1,12 @@
 {
-  "alugueis": [
+  "rent": [
     {
-      "cliente": "cliente1",
-      "livro": "Meditações"
+      "client": "cliente1",
+      "book": "Meditações"
     },
     {
-      "cliente": "cliente2",
-      "livro": "Orgulho e Preconceito"
+      "client": "cliente2",
+      "book": "Orgulho e Preconceito"
     }
   ]
 }
