@@ -54,7 +54,15 @@ public class ClientHandler implements Runnable {
                     }
                 } else if (clientState.equals(ClientState.DEVOLVENDO_LIVRO.getDescricao())) {
                     // Implementar lógica para devolver livro
+                    message = bufferedReader.readLine();
+                    if(message != null) {
+                        boolean success = BookHandler.putBookBack(message, clientUsername);
+                        message = success ? clientUsername + " returned a book: " + message : "Failed to return the book: " + message;
+                        broadcastMessage(message);
+                        clientState = ClientState.NORMAL.getDescricao();
+                        continue;
 
+                    }
                 } else if (clientState.equals(ClientState.CADASTRANDO_LIVRO.getDescricao())) {
                     // Implementar lógica para cadastrar livro
 
@@ -74,10 +82,7 @@ public class ClientHandler implements Runnable {
 
                     } else if (message.startsWith(returnBook)) {
                         clientState = ClientState.DEVOLVENDO_LIVRO.getDescricao();
-                        String titulo = message.replace(returnBook, "").trim();
-                        boolean success = BookHandler.returnBook(titulo);
-                        message = success ? clientUsername + " returned a book: " + titulo : "Failed to return the book: " + titulo;
-                        broadcastMessage(message);
+                        broadcastMessage("Type the name of the book");
 
                     } else if (message.startsWith(out)) {
                         closeEverything(socket, bufferedReader, bufferedWriter);

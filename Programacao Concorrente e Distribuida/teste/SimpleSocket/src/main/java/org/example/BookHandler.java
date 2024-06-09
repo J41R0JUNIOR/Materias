@@ -47,28 +47,52 @@ public class BookHandler {
         return false;
     }
 
+    public static boolean putBookBack(String titulo, String clientName) {
+        ArrayList<Book> books = loadBooksFromFile();
+        ArrayList<ClientInDebt> clientsInDebt = loadCostumersInDebtFromFile();
+        boolean isClientInDebt = clientInDebt(clientsInDebt, clientName);
+        String bookName = bookRented(clientsInDebt, clientName);
+
+        if (isClientInDebt && titulo.equals(bookName)) {
+            for (Book book : books) {
+                if (book.getTittle().equalsIgnoreCase(titulo)) {
+                    book.setCopies(book.getCopies() + 1);
+                    saveBooksToFile(books);
+                    removeRentRecord(clientName, titulo, clientsInDebt);
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    private static String bookRented(ArrayList<ClientInDebt> clients, String clientName){
+        String bookName = null;
+        for (ClientInDebt clientInDebt : clients) {
+            if (clientInDebt.getClient().equalsIgnoreCase(clientName)) {
+                bookName = clientInDebt.book;
+            }
+        }
+        return bookName;
+    }
+
     private static void addRentRecord(String clientName, String bookTitle) {
         ArrayList<ClientInDebt> rentRecords = loadRentRecordsFromFile();
         rentRecords.add(new ClientInDebt(clientName, bookTitle));
         saveRentRecordsToFile(rentRecords);
     }
 
-    public static boolean clientInDebt(ArrayList<ClientInDebt> clients, String clientName) {
-        for (ClientInDebt clientInDebt : clients) {
-            System.out.println(clientName);
-            if (clientInDebt.getClient().equalsIgnoreCase(clientName)) {
-                return true;
-            }
-        }
-        return false;
+    private static void removeRentRecord(String clientName, String bookTitle, ArrayList<ClientInDebt> clients) {
+
+
+        clients.removeIf(clientInDebt -> clientInDebt.getClient().equals(clientName));
+
+        saveRentRecordsToFile(clients);
     }
 
-    public static boolean returnBook(String titulo) {
-        ArrayList<Book> books = loadBooksFromFile();
-        for (Book book : books) {
-            if (book.getTittle().equalsIgnoreCase(titulo)) {
-                book.setCopies(book.getCopies() + 1);
-                saveBooksToFile(books);
+    public static boolean clientInDebt(ArrayList<ClientInDebt> clients, String clientName) {
+        for (ClientInDebt clientInDebt : clients) {
+            if (clientInDebt.getClient().equalsIgnoreCase(clientName)) {
                 return true;
             }
         }
@@ -121,14 +145,10 @@ public class BookHandler {
             }
             reader.close();
 
-            System.out.println("JSON Content: " + jsonContent.toString()); // Debug statement
-
             Gson gson = new Gson();
             JsonObject jsonObject = gson.fromJson(jsonContent.toString(), JsonObject.class);
-            System.out.println("Parsed JSON Object: " + jsonObject); // Debug statement
 
             clientsInDebt = gson.fromJson(jsonObject.get("rent"), new TypeToken<ArrayList<ClientInDebt>>() {}.getType());
-            System.out.println("Clients in debt loaded: " + clientsInDebt); // Debug statement
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -153,14 +173,11 @@ public class BookHandler {
             }
             reader.close();
 
-            System.out.println("JSON Content: " + jsonContent.toString()); // Debug statement
 
             Gson gson = new Gson();
             JsonObject jsonObject = gson.fromJson(jsonContent.toString(), JsonObject.class);
-            System.out.println("Parsed JSON Object: " + jsonObject); // Debug statement
 
             rentRecords = gson.fromJson(jsonObject.get("rent"), new TypeToken<ArrayList<ClientInDebt>>() {}.getType());
-            System.out.println("Rent records loaded: " + rentRecords); // Debug statement
         } catch (IOException e) {
             e.printStackTrace();
         }
