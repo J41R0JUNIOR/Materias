@@ -5,6 +5,7 @@ const estoqueController = require('../controllers/estoqueController');
 
 router.get('/', estoqueController.indexView);
 router.get('/criar_conta', estoqueController.criarContaView);
-router.get('/cadastrar_usuario', estoqueController.cadastrarUsuario);
+router.post('/cadastrar_usuario', estoqueController.cadastrarUsuario);
+router.post('/acessar', estoqueController.acessarUsuario);
 
 module.exports = router;

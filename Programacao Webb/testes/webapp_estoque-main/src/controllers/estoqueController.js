@@ -15,17 +15,32 @@ function cadastrarUsuario(req, res){
         perfil: req.body.perfil
     }
 
-    // console.log(usuario);
-    Usuario.create(usuario).then(()=> {
+    Usuario.create(usuario).then(() => {
         res.redirect('/?cadastrar_usuario=true');
-    }).catch((err)=>{
-        console.log(err)
+    }).catch((err) => {
+        console.log(err);
         res.redirect('/?cadastrar_usuario=false');
+    });
+}
+
+function acessarUsuario(req, res) {
+    const { email, senha } = req.body;
+    
+    Usuario.findOne({ where: { email: email } }).then(usuario => {
+        if (usuario && usuario.senha === senha) {
+            res.send('Login realizado com sucesso!');
+        } else {
+            res.status(401).send('Credenciais inválidas');
+        }
+    }).catch(err => {
+        console.log(err);
+        res.status(500).send('Erro no servidor');
     });
 }
 
 module.exports = {
     indexView, 
     criarContaView, 
-    cadastrarUsuario
+    cadastrarUsuario,
+    acessarUsuario
 }
