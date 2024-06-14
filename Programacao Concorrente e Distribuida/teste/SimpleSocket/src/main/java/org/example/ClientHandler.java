@@ -1,8 +1,10 @@
 package org.example;
 
 import java.io.*;
+import java.lang.reflect.Array;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Objects;
 
 public class ClientHandler implements Runnable {
@@ -35,6 +37,7 @@ public class ClientHandler implements Runnable {
         String listBooks = String.valueOf(ClientOptions.LIST_BOOKS.getDescription());
         String rentBook = String.valueOf(ClientOptions.RENT_BOOKS.getDescription());
         String returnBook = String.valueOf(ClientOptions.RETURN_BOOKS.getDescription());
+        String registerBook = String.valueOf(ClientOptions.REGISTER_BOOKS.getDescription());
         String out = String.valueOf(ClientOptions.OUT.getDescription());
 
         while (socket.isConnected()) {
@@ -65,6 +68,22 @@ public class ClientHandler implements Runnable {
                     }
                 } else if (clientState.equals(ClientState.CADASTRANDO_LIVRO.getDescricao())) {
                     // Implementar lógica para cadastrar livro
+                    message = bufferedReader.readLine();
+                    if(message != null){
+                        String[] messageSplitted = message.split(",");
+                        String tittle = messageSplitted[0].trim();
+                        String author = messageSplitted[1].trim();
+                        String genre = messageSplitted[2].trim();
+                        int copies = Integer.parseInt(messageSplitted[3].trim());
+
+                        Book book = new Book(tittle, author, genre, copies);
+                        boolean success = BookHandler.registeBook(book);
+
+                        message = success ? clientUsername + "registered the book " + message: "Failed to register the book" + message;
+                        broadcastMessage(message);
+                        clientState = ClientState.NORMAL.getDescricao();
+                        continue;
+                    }
 
                 }
 
@@ -83,6 +102,11 @@ public class ClientHandler implements Runnable {
                     } else if (message.startsWith(returnBook)) {
                         clientState = ClientState.DEVOLVENDO_LIVRO.getDescricao();
                         broadcastMessage("Type the name of the book");
+
+                    } else if(message.startsWith(registerBook)){
+                        clientState = ClientState.CADASTRANDO_LIVRO.getDescricao();
+                        broadcastMessage("Type the info of the book like this(tittle, author, genre, copies)");
+
 
                     } else if (message.startsWith(out)) {
                         closeEverything(socket, bufferedReader, bufferedWriter);

@@ -198,6 +198,40 @@ public class BookHandler {
         }
     }
 
+    private static void saveRegistedBookToFile(ArrayList<Book> books){
+        try {
+            Gson gson = new Gson();
+            JsonObject jsonObject = new JsonObject();
+            jsonObject.add("books", gson.toJsonTree(books));
+
+            BufferedWriter writer = new BufferedWriter(new FileWriter(BOOKS_FILE_PATH));
+            writer.write(gson.toJson(jsonObject));
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static boolean registeBook(Book book){
+        ArrayList<Book> books = loadBooksFromFile();
+
+        for(Book searchedBook: books){
+            if(searchedBook.equals(book)){
+                return false;
+            }
+        }
+
+        books.add(book);
+        saveRegistedBookToFile(books);
+        return true;
+    }
+
+//    private static void addRentRecord(String clientName, String bookTitle) {
+//        ArrayList<ClientInDebt> rentRecords = loadRentRecordsFromFile();
+//        rentRecords.add(new ClientInDebt(clientName, bookTitle));
+//        saveRentRecordsToFile(rentRecords);
+//    }
+
     private static void saveBooksToFile(ArrayList<Book> books) {
         try {
             Gson gson = new Gson();

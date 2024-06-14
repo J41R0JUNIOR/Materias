@@ -6,6 +6,16 @@ public class Book {
     private String genre;
     private int copies;
 
+//    public void Book(){
+//    }
+
+    public Book(String tittle, String author, String genre, int copies) {
+        this.tittle = tittle;
+        this.author = author;
+        this.genre = genre;
+        this.copies = copies;
+    }
+
     public String getTittle() {
         return tittle;
     }
